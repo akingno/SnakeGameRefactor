@@ -6,64 +6,49 @@
 #define BLOCK_SIZE 20.0f
 
 using namespace std;
-// 定义方向
+
 enum Direction { Up, Down, Left, Right };
 
-// 蛇类
-class Snake {
+class GameObject{
+public:
+    GameObject();
+    virtual ~GameObject();
+    virtual void Render(sf::RenderWindow& window) = 0;
+};
+
+GameObject::GameObject() = default;
+GameObject::~GameObject() = default;
+
+
+class Fruit : public GameObject{
+public:
+    Fruit();
+    virtual ~Fruit();
+    virtual void Respawn()=0;
+    virtual void Eaten()=0;
+};
+
+Fruit::Fruit()  = default;
+Fruit::~Fruit() = default;
+
+class Snake : public GameObject{
 public:
     Snake();
-    ~Snake();
-
     void Update();
-    void Render(sf::RenderWindow& window);
+    void Render(sf::RenderWindow& window) override;
     void ChangeDirection(Direction newDirection);
     void Grow();
     bool CheckCollision();
     bool CheckAppleCollision(sf::Vector2f applePosition);
 
 private:
+    int lifeCount;
     vector<sf::RectangleShape> body;
     Direction direction;
     bool grow;
 };
 
-Snake::Snake() : direction(Right), grow(false) {
-    body.push_back(sf::RectangleShape(sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE)));
-    body.back().setFillColor(sf::Color::Green);
-    body.back().setPosition(BLOCK_SIZE * 5, BLOCK_SIZE * 5);
-}
-
-Snake::~Snake() {}
-
-void Snake::Update(){
-    if (grow) {
-        body.push_back(sf::RectangleShape(sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE)));
-        body.back().setFillColor(sf::Color::Green);
-        grow = false;
-    } else {
-        for (size_t i = body.size() - 1; i > 0; --i) {
-            body[i].setPosition(body[i - 1].getPosition());
-        }
-    }
-
-    switch (direction) {
-        case Up:
-            body[0].move(0, -BLOCK_SIZE);
-            break;
-        case Down:
-            body[0].move(0, BLOCK_SIZE);
-            break;
-        case Left:
-            body[0].move(-BLOCK_SIZE, 0);
-            break;
-        case Right:
-            body[0].move(BLOCK_SIZE, 0);
-            break;
-    }
-}
-
-void Snake::Render(sf::RenderWindow& window) {
+void Snake::Render(sf::RenderWindow& window){
     for (auto& segment : body) {
         window.draw(segment);
     }
@@ -93,12 +78,13 @@ bool Snake::CheckAppleCollision(sf::Vector2f applePosition) {
     return false;
 }
 
-// 苹果类
-class Apple {
+
+class Apple : public Fruit{
 public:
     Apple();
-    void Respawn();
-    void Render(sf::RenderWindow& window);
+    void Respawn() override;
+    void Render(sf::RenderWindow& window) override;
+    void Eaten() override;
 
     sf::Vector2f getPosition();
 
@@ -109,7 +95,6 @@ private:
 Apple::Apple(){
     appleShape.setRadius(BLOCK_SIZE / 2);
     appleShape.setFillColor(sf::Color::Red);
-    Respawn();
 }
 
 void Apple::Respawn() {
@@ -120,7 +105,7 @@ void Apple::Respawn() {
     appleShape.setPosition(x, y);
 }
 
-void Apple::Render(sf::RenderWindow& window) {
+void Apple::Render(sf::RenderWindow& window){
     window.draw(appleShape);
 }
 
@@ -128,12 +113,119 @@ sf::Vector2f Apple::getPosition() {
     return appleShape.getPosition();
 }
 
+void Apple::Eaten() {
+    cout<<"eaten"<<endl;
+}
+
+class GameObjectFactory{
+public:
+    virtual GameObject* Manufacture() = 0;
+};
+
+class AppleFactory : GameObjectFactory{
+    Apple* Manufacture() override{
+        auto* apple = new Apple();
+        return apple;
+    }
+};
+
+class SnakeFactory : GameObjectFactory{
+    Snake* Manufacture() override{
+        auto* snake = new Snake();
+        return snake;
+    }
+};
+
+class Observer{
+public:
+    virtual void Update();
+};
+
+class ScoreObserver : Observer{
+private:
+    int Score;
+public:
+    void Update(){
+
+    }
+};
+
+class PaintObserver : Observer{
+private:
+    Snake* snake;
+    Fruit* goodFruit;
+    //Mine mine;
+public:
+    PaintObserver(Snake *snake,Fruit *goodFruit):
+        snake(snake),goodFruit(goodFruit){}
+    void Update(){
+
+    }
+};
+
+class CollisionObserver:Observer{
+public:
+    void Update(){
+
+    }
+};
+
+class Subject{
+private:
+    vector<Observer> observers;
+public:
+    void Attatch(Observer observer){
+        observers.push_back(observer);
+    }
+};
+
+
+Snake::Snake() : direction(Right), grow(false),lifeCount(1){
+    body.push_back(sf::RectangleShape(sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE)));
+    body.back().setFillColor(sf::Color::Green);
+    body.back().setPosition(BLOCK_SIZE * 5, BLOCK_SIZE * 5);
+}
+
+void Snake::Update(){
+    if (grow) {
+        body.push_back(sf::RectangleShape(sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE)));
+        body.back().setFillColor(sf::Color::Green);
+        grow = false;
+    } else {
+        for (size_t i = body.size() - 1; i > 0; --i) {
+            body[i].setPosition(body[i - 1].getPosition());
+        }
+    }
+
+    switch (direction) {
+        case Up:
+            body[0].move(0, -BLOCK_SIZE);
+            break;
+        case Down:
+            body[0].move(0, BLOCK_SIZE);
+            break;
+        case Left:
+            body[0].move(-BLOCK_SIZE, 0);
+            break;
+        case Right:
+            body[0].move(BLOCK_SIZE, 0);
+            break;
+    }
+}
+
+
+
+
+
+
+
 int main() {
     std::srand(static_cast<unsigned>(std::time(0)));
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "Snake Game");
     Snake snake;
     Apple apple;
+    apple.Respawn();
 
     sf::Font font;
     if (!font.loadFromFile("arial.ttf")) {
