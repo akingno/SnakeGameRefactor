@@ -11,6 +11,31 @@ using namespace std;
 
 enum Direction { Up, Down, Left, Right };
 
+class GlobalData{
+public:
+
+    sf::Text    scoreText;
+    sf::Font    font;
+    int         score           = 0;
+    string      msg_paint       = "paint";
+    string      msg_collision   = "collision";
+    string      msg_score       = "score";
+
+
+
+    GlobalData() : score(0) {
+        if (!font.loadFromFile("arial.ttf")) {
+            std::cout<<"no font"<<std::endl;
+        }
+        scoreText.setFont(font);
+        scoreText.setCharacterSize(24);
+        scoreText.setFillColor(sf::Color::White);
+        scoreText.setPosition(10, 10);
+    }
+
+};
+
+
 class GameObject{
 public:
     GameObject();
@@ -166,7 +191,9 @@ private:
     int Score;
 public:
     void Update(string& message) override{
-        cout<<"Score update"<<endl;
+        if(message=="score"){
+            cout<<"Score update"<<endl;
+        }
         /*
          * TODO:
          * 如果消息是分数，进行分数的更新
@@ -179,32 +206,42 @@ public:
 class PaintObserver : public Observer{
 private:
     //TODO:这里改成整个场景内的所有物品的指针的vector，也就是vector<shared_ptr<GameObject>>
-    shared_ptr<Snake>   snake;
-    shared_ptr<Fruit>   goodFruit;
+    shared_ptr<Snake>       snake;
+    shared_ptr<Fruit>       goodFruit;
+    sf::RenderWindow&       window;
+    GlobalData&             globalData;
     //Mine mine;
 public:
-    PaintObserver(shared_ptr<Snake>& snake,shared_ptr<Fruit>& goodFruit):
-        snake(snake),goodFruit(goodFruit){}
+    PaintObserver(shared_ptr<Snake>& snake,shared_ptr<Fruit>& goodFruit,sf::RenderWindow& window,GlobalData& globalData):
+        snake(snake),goodFruit(goodFruit),window(window),globalData(globalData){}
     void Update(string& message) override{
-        cout<<"Paint update"<<endl;
+        //cout<<"Paint update"<<endl;
         /*
          * TODO:
          * 如果消息是绘制，进行物品的绘制
          *
-         *
          * */
+        if(message=="paint"){
+            globalData.scoreText.setString("Score: " + std::to_string(globalData.score));
+            window.clear();
+            snake->Render(window);
+            goodFruit->Render(window);
+            window.draw(globalData.scoreText);
+            window.display();
+        }
     }
 };
 
 class CollisionObserver : public Observer{
 public:
     void Update(string& message) override{
-        cout<<"Collision check and update"<<endl;
+        if(message=="collision"){
+            cout<<"Collision check and update"<<endl;
+        }
 
         /*
          * TODO:
-         * 如果消息是膨胀，进行判断
-         * 如果碰撞墙或地雷，结算死亡
+         * 如果消息是碰撞死，进行结算死亡
          * 如果碰撞果子，结算分数
          * */
     }
@@ -212,10 +249,15 @@ public:
 
 class Subject{
 private:
-    vector<shared_ptr<Observer>> observers;
+    vector<shared_ptr<Observer>>    observers;
+    string                          state;
 public:
     void Attatch(shared_ptr<Observer> &observer){
         observers.push_back(observer);
+    }
+    void UpdateState(string& newState){
+        this->state = newState;
+        Notify(newState);
     }
     void Notify(string& message){
         for(auto observer : observers){
@@ -233,6 +275,12 @@ int main() {
     srand(static_cast<unsigned>(time(0)));
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "Snake Game");
+
+    GlobalData globalData;
+
+
+
+
     shared_ptr<Snake> snake = make_shared<Snake>();
     shared_ptr<Fruit> apple = make_shared<Apple>();
 
@@ -240,28 +288,14 @@ int main() {
 
     shared_ptr<Observer>            scoreObserver           =   make_shared<ScoreObserver>();
     shared_ptr<Observer>            collisionObserver       =   make_shared<CollisionObserver>();
-    shared_ptr<Observer>            paintObserver           =   make_shared<PaintObserver>(snake,apple);
+    shared_ptr<Observer>            paintObserver           =   make_shared<PaintObserver>(snake,apple,window,globalData);
 
     subject ->  Attatch(scoreObserver);
     subject ->  Attatch(collisionObserver);
     subject ->  Attatch(paintObserver);
 
-
-
     apple->Respawn();
 
-    sf::Font font;
-    if (!font.loadFromFile("arial.ttf")) {
-        std::cout<<"no font"<<std::endl;
-        return -1; // 确保字体文件存在
-    }
-
-    int score = 0;
-    sf::Text scoreText;
-    scoreText.setFont(font);
-    scoreText.setCharacterSize(24);
-    scoreText.setFillColor(sf::Color::White);
-    scoreText.setPosition(10, 10);
 
     sf::Clock clock;
     float timer = 0.0f, delay = 0.1f;
@@ -301,17 +335,18 @@ int main() {
             if (snake->CheckAppleCollision(dynamic_pointer_cast<Apple>(apple)->getPosition())) {
                 snake->Grow();
                 apple->Respawn();
-                score++;
+                globalData.score++;
             }
         }
 
-        scoreText.setString("Score: " + std::to_string(score));
+        subject->UpdateState(globalData.msg_paint);
 
+        /*globalData.scoreText.setString("Score: " + std::to_string(globalData.score));
         window.clear();
         snake->Render(window);
         apple->Render(window);
-        window.draw(scoreText);
-        window.display();
+        window.draw(globalData.scoreText);
+        window.display();*/
     }
 
     return 0;
