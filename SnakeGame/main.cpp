@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <memory>
+
 #define BLOCK_SIZE 20.0f
 
 using namespace std;
@@ -156,19 +158,19 @@ void Apple::Eaten() {
 
 class Observer{
 public:
-    virtual void Update();
+    virtual void Update() = 0;
 };
 
-class ScoreObserver : Observer{
+class ScoreObserver : public Observer{
 private:
     int Score;
 public:
-    void Update(){
-
+    void Update() override{
+        cout<<"Score update"<<endl;
     }
 };
 
-class PaintObserver : Observer{
+class PaintObserver : public Observer{
 private:
     Snake* snake;
     Fruit* goodFruit;
@@ -176,23 +178,23 @@ private:
 public:
     PaintObserver(Snake *snake,Fruit *goodFruit):
         snake(snake),goodFruit(goodFruit){}
-    void Update(){
-
+    void Update() override{
+        cout<<"Paint update"<<endl;
     }
 };
 
-class CollisionObserver:Observer{
+class CollisionObserver : public Observer{
 public:
-    void Update(){
-
+    void Update() override{
+        cout<<"Collision check and update"<<endl;
     }
 };
 
 class Subject{
 private:
-    vector<Observer> observers;
+    vector<Observer*> observers;
 public:
-    void Attatch(Observer observer){
+    void Attatch(Observer* observer){
         observers.push_back(observer);
     }
 };
@@ -201,12 +203,27 @@ public:
 
 
 int main() {
-    std::srand(static_cast<unsigned>(std::time(0)));
+
+
+    srand(static_cast<unsigned>(time(0)));
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "Snake Game");
-    Snake snake;
-    Apple apple;
-    apple.Respawn();
+    auto* snake = new Snake();
+    auto* apple = new Apple();
+
+    shared_ptr<Subject>             subject                 =   make_shared<Subject>();
+
+    auto*                           scoreObserver           =   new ScoreObserver();
+    auto*                           collisionObserver       =   new CollisionObserver();
+    auto*                           paintObserver           =   new PaintObserver(snake,apple);
+
+    subject->Attatch(scoreObserver);
+    subject->Attatch(collisionObserver);
+    subject->Attatch(paintObserver);
+
+
+
+    apple->Respawn();
 
     sf::Font font;
     if (!font.loadFromFile("arial.ttf")) {
@@ -232,13 +249,13 @@ int main() {
             }
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::W) {
-                    snake.ChangeDirection(Up);
+                    snake->ChangeDirection(Up);
                 } else if (event.key.code == sf::Keyboard::S) {
-                    snake.ChangeDirection(Down);
+                    snake->ChangeDirection(Down);
                 } else if (event.key.code == sf::Keyboard::A) {
-                    snake.ChangeDirection(Left);
+                    snake->ChangeDirection(Left);
                 } else if (event.key.code == sf::Keyboard::D) {
-                    snake.ChangeDirection(Right);
+                    snake->ChangeDirection(Right);
                 }
             }
         }
@@ -249,16 +266,16 @@ int main() {
 
         if (timer > delay) {
             timer = 0;
-            snake.Update();
+            snake->Update();
 
-            if (snake.CheckCollision()) {
+            if (snake->CheckCollision()) {
                 // 处理蛇碰撞
                 window.close();
             }
 
-            if (snake.CheckAppleCollision(apple.getPosition())) {
-                snake.Grow();
-                apple.Respawn();
+            if (snake->CheckAppleCollision(apple->getPosition())) {
+                snake->Grow();
+                apple->Respawn();
                 score++;
             }
         }
@@ -266,8 +283,8 @@ int main() {
         scoreText.setString("Score: " + std::to_string(score));
 
         window.clear();
-        snake.Render(window);
-        apple.Render(window);
+        snake->Render(window);
+        apple->Render(window);
         window.draw(scoreText);
         window.display();
     }
