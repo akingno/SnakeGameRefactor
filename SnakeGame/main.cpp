@@ -172,11 +172,11 @@ public:
 
 class PaintObserver : public Observer{
 private:
-    Snake* snake;
-    Fruit* goodFruit;
+    shared_ptr<Snake>   snake;
+    shared_ptr<Fruit>   goodFruit;
     //Mine mine;
 public:
-    PaintObserver(Snake *snake,Fruit *goodFruit):
+    PaintObserver(shared_ptr<Snake>& snake,shared_ptr<Fruit>& goodFruit):
         snake(snake),goodFruit(goodFruit){}
     void Update() override{
         cout<<"Paint update"<<endl;
@@ -192,9 +192,9 @@ public:
 
 class Subject{
 private:
-    vector<Observer*> observers;
+    vector<shared_ptr<Observer>> observers;
 public:
-    void Attatch(Observer* observer){
+    void Attatch(shared_ptr<Observer> &observer){
         observers.push_back(observer);
     }
 };
@@ -208,18 +208,18 @@ int main() {
     srand(static_cast<unsigned>(time(0)));
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "Snake Game");
-    auto* snake = new Snake();
-    auto* apple = new Apple();
+    shared_ptr<Snake> snake = make_shared<Snake>();
+    shared_ptr<Fruit> apple = make_shared<Apple>();
 
     shared_ptr<Subject>             subject                 =   make_shared<Subject>();
 
-    auto*                           scoreObserver           =   new ScoreObserver();
-    auto*                           collisionObserver       =   new CollisionObserver();
-    auto*                           paintObserver           =   new PaintObserver(snake,apple);
+    shared_ptr<Observer>            scoreObserver           =   make_shared<ScoreObserver>();
+    shared_ptr<Observer>            collisionObserver       =   make_shared<CollisionObserver>();
+    shared_ptr<Observer>            paintObserver           =   make_shared<PaintObserver>(snake,apple);
 
-    subject->Attatch(scoreObserver);
-    subject->Attatch(collisionObserver);
-    subject->Attatch(paintObserver);
+    subject ->  Attatch(scoreObserver);
+    subject ->  Attatch(collisionObserver);
+    subject ->  Attatch(paintObserver);
 
 
 
@@ -273,7 +273,7 @@ int main() {
                 window.close();
             }
 
-            if (snake->CheckAppleCollision(apple->getPosition())) {
+            if (snake->CheckAppleCollision(dynamic_pointer_cast<Apple>(apple)->getPosition())) {
                 snake->Grow();
                 apple->Respawn();
                 score++;
