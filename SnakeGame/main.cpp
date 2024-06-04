@@ -1,5 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
 
 // 定义方向
 enum Direction { Up, Down, Left, Right };
@@ -15,6 +18,7 @@ public:
     void ChangeDirection(Direction newDirection);
     void Grow();
     bool CheckCollision();
+    bool CheckAppleCollision(sf::Vector2f applePosition);
 
 private:
     float blockSize;
@@ -81,9 +85,68 @@ bool Snake::CheckCollision() {
     return false;
 }
 
+bool Snake::CheckAppleCollision(sf::Vector2f applePosition) {
+    if (body[0].getPosition() == applePosition) {
+        return true;
+    }
+    return false;
+}
+
+// 苹果类
+class Apple {
+public:
+    Apple(float blockSize);
+    void Respawn();
+    void Render(sf::RenderWindow& window);
+
+    sf::Vector2f getPosition();
+
+private:
+    float blockSize;
+    sf::CircleShape appleShape;
+};
+
+Apple::Apple(float blockSize) : blockSize(blockSize) {
+    appleShape.setRadius(blockSize / 2);
+    appleShape.setFillColor(sf::Color::Red);
+    Respawn();
+}
+
+void Apple::Respawn() {
+    int maxX = 800 / static_cast<int>(blockSize);
+    int maxY = 600 / static_cast<int>(blockSize);
+    int x = std::rand() % maxX * static_cast<int>(blockSize);
+    int y = std::rand() % maxY * static_cast<int>(blockSize);
+    appleShape.setPosition(x, y);
+}
+
+void Apple::Render(sf::RenderWindow& window) {
+    window.draw(appleShape);
+}
+
+sf::Vector2f Apple::getPosition() {
+    return appleShape.getPosition();
+}
+
 int main() {
+    std::srand(static_cast<unsigned>(std::time(0)));
+
     sf::RenderWindow window(sf::VideoMode(800, 600), "Snake Game");
     Snake snake(20.0f);
+    Apple apple(20.0f);
+
+    sf::Font font;
+    if (!font.loadFromFile("arial.ttf")) {
+        std::cout<<"no font"<<std::endl;
+        return -1; // 确保字体文件存在
+    }
+
+    int score = 0;
+    sf::Text scoreText;
+    scoreText.setFont(font);
+    scoreText.setCharacterSize(24);
+    scoreText.setFillColor(sf::Color::White);
+    scoreText.setPosition(10, 10);
 
     sf::Clock clock;
     float timer = 0.0f, delay = 0.1f;
@@ -119,10 +182,20 @@ int main() {
                 // 处理蛇碰撞
                 window.close();
             }
+
+            if (snake.CheckAppleCollision(apple.getPosition())) {
+                snake.Grow();
+                apple.Respawn();
+                score++;
+            }
         }
+
+        scoreText.setString("Score: " + std::to_string(score));
 
         window.clear();
         snake.Render(window);
+        apple.Render(window);
+        window.draw(scoreText);
         window.display();
     }
 
