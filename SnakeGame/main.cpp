@@ -48,6 +48,39 @@ private:
     bool grow;
 };
 
+Snake::Snake() : direction(Right), grow(false),lifeCount(1){
+    body.push_back(sf::RectangleShape(sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE)));
+    body.back().setFillColor(sf::Color::Green);
+    body.back().setPosition(BLOCK_SIZE * 5, BLOCK_SIZE * 5);
+}
+
+void Snake::Update(){
+    if (grow) {
+        body.push_back(sf::RectangleShape(sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE)));
+        body.back().setFillColor(sf::Color::Green);
+        grow = false;
+    } else {
+        for (size_t i = body.size() - 1; i > 0; --i) {
+            body[i].setPosition(body[i - 1].getPosition());
+        }
+    }
+
+    switch (direction) {
+        case Up:
+            body[0].move(0, -BLOCK_SIZE);
+            break;
+        case Down:
+            body[0].move(0, BLOCK_SIZE);
+            break;
+        case Left:
+            body[0].move(-BLOCK_SIZE, 0);
+            break;
+        case Right:
+            body[0].move(BLOCK_SIZE, 0);
+            break;
+    }
+}
+
 void Snake::Render(sf::RenderWindow& window){
     for (auto& segment : body) {
         window.draw(segment);
@@ -82,6 +115,7 @@ bool Snake::CheckAppleCollision(sf::Vector2f applePosition) {
 class Apple : public Fruit{
 public:
     Apple();
+    virtual ~Apple();
     void Respawn() override;
     void Render(sf::RenderWindow& window) override;
     void Eaten() override;
@@ -96,6 +130,8 @@ Apple::Apple(){
     appleShape.setRadius(BLOCK_SIZE / 2);
     appleShape.setFillColor(sf::Color::Red);
 }
+
+Apple::~Apple() = default;
 
 void Apple::Respawn() {
     int maxX = 800 / static_cast<int>(BLOCK_SIZE);
@@ -117,24 +153,6 @@ void Apple::Eaten() {
     cout<<"eaten"<<endl;
 }
 
-class GameObjectFactory{
-public:
-    virtual GameObject* Manufacture() = 0;
-};
-
-class AppleFactory : GameObjectFactory{
-    Apple* Manufacture() override{
-        auto* apple = new Apple();
-        return apple;
-    }
-};
-
-class SnakeFactory : GameObjectFactory{
-    Snake* Manufacture() override{
-        auto* snake = new Snake();
-        return snake;
-    }
-};
 
 class Observer{
 public:
@@ -178,43 +196,6 @@ public:
         observers.push_back(observer);
     }
 };
-
-
-Snake::Snake() : direction(Right), grow(false),lifeCount(1){
-    body.push_back(sf::RectangleShape(sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE)));
-    body.back().setFillColor(sf::Color::Green);
-    body.back().setPosition(BLOCK_SIZE * 5, BLOCK_SIZE * 5);
-}
-
-void Snake::Update(){
-    if (grow) {
-        body.push_back(sf::RectangleShape(sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE)));
-        body.back().setFillColor(sf::Color::Green);
-        grow = false;
-    } else {
-        for (size_t i = body.size() - 1; i > 0; --i) {
-            body[i].setPosition(body[i - 1].getPosition());
-        }
-    }
-
-    switch (direction) {
-        case Up:
-            body[0].move(0, -BLOCK_SIZE);
-            break;
-        case Down:
-            body[0].move(0, BLOCK_SIZE);
-            break;
-        case Left:
-            body[0].move(-BLOCK_SIZE, 0);
-            break;
-        case Right:
-            body[0].move(BLOCK_SIZE, 0);
-            break;
-    }
-}
-
-
-
 
 
 
