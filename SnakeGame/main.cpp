@@ -3,14 +3,16 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#define BLOCK_SIZE 20.0f
 
+using namespace std;
 // 定义方向
 enum Direction { Up, Down, Left, Right };
 
 // 蛇类
 class Snake {
 public:
-    Snake(float blockSize);
+    Snake();
     ~Snake();
 
     void Update();
@@ -21,23 +23,22 @@ public:
     bool CheckAppleCollision(sf::Vector2f applePosition);
 
 private:
-    float blockSize;
-    std::vector<sf::RectangleShape> body;
+    vector<sf::RectangleShape> body;
     Direction direction;
     bool grow;
 };
 
-Snake::Snake(float blockSize) : blockSize(blockSize), direction(Right), grow(false) {
-    body.push_back(sf::RectangleShape(sf::Vector2f(blockSize, blockSize)));
+Snake::Snake() : direction(Right), grow(false) {
+    body.push_back(sf::RectangleShape(sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE)));
     body.back().setFillColor(sf::Color::Green);
-    body.back().setPosition(blockSize * 5, blockSize * 5);
+    body.back().setPosition(BLOCK_SIZE * 5, BLOCK_SIZE * 5);
 }
 
 Snake::~Snake() {}
 
-void Snake::Update() {
+void Snake::Update(){
     if (grow) {
-        body.push_back(sf::RectangleShape(sf::Vector2f(blockSize, blockSize)));
+        body.push_back(sf::RectangleShape(sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE)));
         body.back().setFillColor(sf::Color::Green);
         grow = false;
     } else {
@@ -48,16 +49,16 @@ void Snake::Update() {
 
     switch (direction) {
         case Up:
-            body[0].move(0, -blockSize);
+            body[0].move(0, -BLOCK_SIZE);
             break;
         case Down:
-            body[0].move(0, blockSize);
+            body[0].move(0, BLOCK_SIZE);
             break;
         case Left:
-            body[0].move(-blockSize, 0);
+            body[0].move(-BLOCK_SIZE, 0);
             break;
         case Right:
-            body[0].move(blockSize, 0);
+            body[0].move(BLOCK_SIZE, 0);
             break;
     }
 }
@@ -95,28 +96,27 @@ bool Snake::CheckAppleCollision(sf::Vector2f applePosition) {
 // 苹果类
 class Apple {
 public:
-    Apple(float blockSize);
+    Apple();
     void Respawn();
     void Render(sf::RenderWindow& window);
 
     sf::Vector2f getPosition();
 
 private:
-    float blockSize;
     sf::CircleShape appleShape;
 };
 
-Apple::Apple(float blockSize) : blockSize(blockSize) {
-    appleShape.setRadius(blockSize / 2);
+Apple::Apple(){
+    appleShape.setRadius(BLOCK_SIZE / 2);
     appleShape.setFillColor(sf::Color::Red);
     Respawn();
 }
 
 void Apple::Respawn() {
-    int maxX = 800 / static_cast<int>(blockSize);
-    int maxY = 600 / static_cast<int>(blockSize);
-    int x = std::rand() % maxX * static_cast<int>(blockSize);
-    int y = std::rand() % maxY * static_cast<int>(blockSize);
+    int maxX = 800 / static_cast<int>(BLOCK_SIZE);
+    int maxY = 600 / static_cast<int>(BLOCK_SIZE);
+    int x = std::rand() % maxX * static_cast<int>(BLOCK_SIZE);
+    int y = std::rand() % maxY * static_cast<int>(BLOCK_SIZE);
     appleShape.setPosition(x, y);
 }
 
@@ -132,8 +132,8 @@ int main() {
     std::srand(static_cast<unsigned>(std::time(0)));
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "Snake Game");
-    Snake snake(20.0f);
-    Apple apple(20.0f);
+    Snake snake;
+    Apple apple;
 
     sf::Font font;
     if (!font.loadFromFile("arial.ttf")) {
