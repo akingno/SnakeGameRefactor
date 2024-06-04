@@ -158,35 +158,55 @@ void Apple::Eaten() {
 
 class Observer{
 public:
-    virtual void Update() = 0;
+    virtual void Update(string& message) = 0;
 };
 
 class ScoreObserver : public Observer{
 private:
     int Score;
 public:
-    void Update() override{
+    void Update(string& message) override{
         cout<<"Score update"<<endl;
+        /*
+         * TODO:
+         * 如果消息是分数，进行分数的更新
+         *
+         *
+         * */
     }
 };
 
 class PaintObserver : public Observer{
 private:
+    //TODO:这里改成整个场景内的所有物品的指针的vector，也就是vector<shared_ptr<GameObject>>
     shared_ptr<Snake>   snake;
     shared_ptr<Fruit>   goodFruit;
     //Mine mine;
 public:
     PaintObserver(shared_ptr<Snake>& snake,shared_ptr<Fruit>& goodFruit):
         snake(snake),goodFruit(goodFruit){}
-    void Update() override{
+    void Update(string& message) override{
         cout<<"Paint update"<<endl;
+        /*
+         * TODO:
+         * 如果消息是绘制，进行物品的绘制
+         *
+         *
+         * */
     }
 };
 
 class CollisionObserver : public Observer{
 public:
-    void Update() override{
+    void Update(string& message) override{
         cout<<"Collision check and update"<<endl;
+
+        /*
+         * TODO:
+         * 如果消息是膨胀，进行判断
+         * 如果碰撞墙或地雷，结算死亡
+         * 如果碰撞果子，结算分数
+         * */
     }
 };
 
@@ -196,6 +216,11 @@ private:
 public:
     void Attatch(shared_ptr<Observer> &observer){
         observers.push_back(observer);
+    }
+    void Notify(string& message){
+        for(auto observer : observers){
+            observer->Update(message);
+        }
     }
 };
 
