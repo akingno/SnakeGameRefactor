@@ -308,13 +308,13 @@ int main() {
             }
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::W) {
-                    snake->ChangeDirection(Up);
+                    snake -> ChangeDirection(Up);
                 } else if (event.key.code == sf::Keyboard::S) {
-                    snake->ChangeDirection(Down);
+                    snake -> ChangeDirection(Down);
                 } else if (event.key.code == sf::Keyboard::A) {
-                    snake->ChangeDirection(Left);
+                    snake -> ChangeDirection(Left);
                 } else if (event.key.code == sf::Keyboard::D) {
-                    snake->ChangeDirection(Right);
+                    snake -> ChangeDirection(Right);
                 }
             }
         }
@@ -325,21 +325,21 @@ int main() {
 
         if (timer > delay) {
             timer = 0;
-            snake->Update();
+            snake -> Update();
 
             if (snake->CheckCollision()) {
                 // 处理蛇碰撞
                 window.close();
             }
 
-            if (snake->CheckAppleCollision(dynamic_pointer_cast<Apple>(apple)->getPosition())) {
-                snake->Grow();
-                apple->Respawn();
+            if (snake -> CheckAppleCollision(dynamic_pointer_cast<Apple>(apple)->getPosition())) {
+                snake -> Grow();
+                apple -> Respawn();
                 globalData.score++;
             }
         }
 
-        subject->UpdateState(globalData.msg_paint);
+        subject -> UpdateState(globalData.msg_paint);
 
         /*globalData.scoreText.setString("Score: " + std::to_string(globalData.score));
         window.clear();
