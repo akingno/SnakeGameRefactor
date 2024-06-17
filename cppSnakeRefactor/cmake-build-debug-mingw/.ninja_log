@@ -1,3 +1,16 @@
 # ninja log v5
 1	1610	7402953001825871	CMakeFiles/cppSnakeRefactor.dir/main.cpp.obj	c2e61cacbd12ef11
 1615	1874	7402953004422346	cppSnakeRefactor.exe	39697a9bf8c864ed
+5	3515	7403055935022507	CMakeFiles/cppSnakeRefactor.dir/main.cpp.obj	c2e61cacbd12ef11
+3516	3990	7403055939711276	cppSnakeRefactor.exe	39697a9bf8c864ed
+4	1647	7403056221205227	CMakeFiles/cppSnakeRefactor.dir/main.cpp.obj	c2e61cacbd12ef11
+1648	1912	7403056223811938	cppSnakeRefactor.exe	39697a9bf8c864ed
+4	1621	7403057101479121	CMakeFiles/cppSnakeRefactor.dir/main.cpp.obj	c2e61cacbd12ef11
+1622	1882	7403057104044165	cppSnakeRefactor.exe	39697a9bf8c864ed
+5	2108	7403084212456226	CMakeFiles/cppSnakeRefactor.dir/main.cpp.obj	c2e61cacbd12ef11
+2111	2402	7403084215359825	cppSnakeRefactor.exe	39697a9bf8c864ed
+5	2024	7403084851869149	CMakeFiles/cppSnakeRefactor.dir/main.cpp.obj	c2e61cacbd12ef11
+2025	2286	7403084854438596	cppSnakeRefactor.exe	39697a9bf8c864ed
+5	1986	7403086527720066	CMakeFiles/cppSnakeRefactor.dir/main.cpp.obj	c2e61cacbd12ef11
+5	1979	7403086956242148	CMakeFiles/cppSnakeRefactor.dir/main.cpp.obj	c2e61cacbd12ef11
+1980	2238	7403086958788218	cppSnakeRefactor.exe	39697a9bf8c864ed
