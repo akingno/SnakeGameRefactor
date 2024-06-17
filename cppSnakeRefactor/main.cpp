@@ -25,8 +25,7 @@ using namespace std;
 #define LEFT	3
 #define RIGHT	4
 
-enum Button { EXIT, RESTART };
-Button currentButton = EXIT;
+
 
 
 void restartGame();
@@ -34,74 +33,6 @@ void ReInit();
 
 Game game;
 
-void DrawButtons(Button current) {
-    void restartGame();
-    setfillcolor(BLACK);
-    bar(200, 400, 400, 450);
-    bar(200, 460, 400, 510);
-
-    if (current == EXIT) {
-        setfillcolor(LIGHTGRAY);
-        bar(200, 400, 400, 450);
-    } else {
-        setfillcolor(BLACK);
-        bar(200, 400, 400, 450);
-    }
-    setcolor(WHITE);
-    setfont(20, 0, _T("微软雅黑"));
-    outtextxy(250, 420, _T("Exit"));
-
-    if (current == RESTART) {
-        setfillcolor(LIGHTGRAY);
-        bar(200, 460, 400, 510);
-    } else {
-        setfillcolor(BLACK);
-        bar(200, 460, 400, 510);
-    }
-    setcolor(WHITE);
-    setfont(20, 0, _T("微软雅黑"));
-    outtextxy(250, 480, _T("Restart"));
-}
-
-void HandleGameOverInput() {
-    while (true) {
-        if (kbhit()) {
-            char c = getch();
-            if (c == 'w' || c == 'W') {
-                currentButton = (currentButton == EXIT) ? RESTART : EXIT;
-                DrawButtons(currentButton);
-            } else if (c == 's' || c == 'S') {
-                currentButton = (currentButton == RESTART) ? EXIT : RESTART;
-                DrawButtons(currentButton);
-            } else if (c == 13) { // Enter key
-                if (currentButton == EXIT) {
-                    closegraph();
-                    exit(0);
-                } else if (currentButton == RESTART) {
-                    restartGame();
-                    return;
-                }
-            }
-        }
-        Sleep(100);
-    }
-}
-
-void Game::showOptions(){
-    setcolor(WHITE);
-    setfont(50, 0, _T("微软雅黑"));
-    outtextxy(150, 265, _T("YOU LOSE!"));
-    DrawButtons(currentButton);
-    HandleGameOverInput();
-}
-
-void restartGame() {
-    ReInit();
-}
-
-void ReInit() {
-    cout<<"reinit"<<endl;
-}
 
 int main() {
     initgraph(800, 600);
