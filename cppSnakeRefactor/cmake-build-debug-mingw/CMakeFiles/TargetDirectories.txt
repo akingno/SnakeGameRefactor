@@ -1,3 +1,0 @@
-C:/Users/jacob/Desktop/temp2/SnakeGameRefactor/cppSnakeRefactor/cmake-build-debug-mingw/CMakeFiles/cppSnakeRefactor.dir
-C:/Users/jacob/Desktop/temp2/SnakeGameRefactor/cppSnakeRefactor/cmake-build-debug-mingw/CMakeFiles/edit_cache.dir
-C:/Users/jacob/Desktop/temp2/SnakeGameRefactor/cppSnakeRefactor/cmake-build-debug-mingw/CMakeFiles/rebuild_cache.dir
