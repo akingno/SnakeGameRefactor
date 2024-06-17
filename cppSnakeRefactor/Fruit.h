@@ -13,6 +13,11 @@ public:
     virtual void RefreshFruit();
     virtual void Eaten();
     virtual int getFruitScore();
+
+protected:
+    int i_nutrition;
+    int i_location_x;
+    int i_location_y;
 };
 
 

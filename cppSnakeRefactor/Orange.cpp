@@ -6,8 +6,11 @@
 
 
 
-Orange::Orange() {
+Orange::Orange(int x,int y){
     // 构造函数实现
+    i_nutrition     =   {2};
+    i_location_x    =   {x};
+    i_location_y    =   {y};
 }
 
 void Orange::RefreshFruit() {

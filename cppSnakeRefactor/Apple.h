@@ -9,7 +9,7 @@
 
 class Apple : public Fruit {
 public:
-    Apple();
+    Apple(int x, int y);
     void RefreshFruit() override;
     void Eaten() override;
     int getFruitScore() override;

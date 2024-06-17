@@ -16,6 +16,7 @@ int main(){
 #include <iostream>
 #include <conio.h>
 #include "Timer.h"
+#include "Game.h"
 
 using namespace std;
 
@@ -27,12 +28,6 @@ using namespace std;
 enum Button { EXIT, RESTART };
 Button currentButton = EXIT;
 
-
-class Game {
-    // Game class definition...
-public:
-    void FailGame();
-};
 
 void restartGame();
 void ReInit();
@@ -92,7 +87,7 @@ void HandleGameOverInput() {
     }
 }
 
-void Game::FailGame() {
+void Game::showOptions(){
     setcolor(WHITE);
     setfont(50, 0, _T("微软雅黑"));
     outtextxy(150, 265, _T("YOU LOSE!"));
@@ -108,9 +103,21 @@ void ReInit() {
     cout<<"reinit"<<endl;
 }
 
-int main(void) {
+int main() {
     initgraph(800, 600);
-    game.FailGame();
+    game.showOptions();
+    /*以上为结束画面的测试
+     *
+     */
+
+    /*
+     * 接下来，1.创建KeyBoardController
+     * 2.创建Game
+     * 3.创建ScoreBoard
+     * 4.进入InitialGame
+     *
+     * */
+
 
     return 0;
 }

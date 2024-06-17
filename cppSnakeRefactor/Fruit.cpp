@@ -5,7 +5,7 @@
 #include "Fruit.h"
 
 
-Fruit::Fruit() {
+Fruit::Fruit(){
     // 构造函数实现
 }
 
