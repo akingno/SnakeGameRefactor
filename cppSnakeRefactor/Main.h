@@ -15,6 +15,7 @@
 #include "ScoreBoard.h"
 #include "Global.h"
 #include <windows.h>
+#include <thread>
 
 /*
  * TODO:此处方向也许需要删除

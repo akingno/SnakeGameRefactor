@@ -14,6 +14,7 @@
 #include <conio.h>
 #include <memory>
 
+
 enum Button { EXIT, RESTART };
 
 
@@ -40,7 +41,7 @@ private:
     std::shared_ptr<Yard>               m_yard;
 
 private:
-    Button                                EndGame();
+    Button                              EndGame();
     void                                StopLooping();
 
 };

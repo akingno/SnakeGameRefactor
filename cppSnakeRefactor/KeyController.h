@@ -10,11 +10,18 @@
 #include "directions/DirectionDown.h"
 #include "directions/DirectionLeft.h"
 #include "directions/DirectionRight.h"
-
+#include <iostream>
+#include <memory>
 class KeyController {
 public:
-                            KeyController();
-    void                    OnKeyPressed(int key);
+                                        KeyController();
+    void                                ListeningKeyPressed();
+private:
+    std::shared_ptr<Direction>          directionUp;
+    std::shared_ptr<Direction>          directionDown;
+    std::shared_ptr<Direction>          directionRight;
+    std::shared_ptr<Direction>          directionLeft;
+    std::shared_ptr<Direction>          currentDirection;
 };
 
 
