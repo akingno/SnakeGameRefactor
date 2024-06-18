@@ -6,6 +6,8 @@
 #define CPPSNAKEREFACTOR_FRUITFACTORY_H
 
 #include "Fruit.h"
+#include "Apple.h"
+#include "Orange.h"
 #include <iostream>
 class FruitFactory{
 public:

@@ -6,7 +6,9 @@
 
 FruitFactory::FruitFactory(){
 
-};
+}
+
 Fruit* FruitFactory::RefreshFruit(){
     std::cout<<"Refresh Fruit"<<'\n';
-};
+    return new Apple(0,0);
+}

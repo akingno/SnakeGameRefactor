@@ -13,6 +13,7 @@ set(SOURCES
         KeyController.cpp
         ScoreBoard.cpp
         Fruit.cpp
+        FruitFactory.cpp
         Orange.cpp
         Apple.cpp
         directions/DirectionUp.cpp
@@ -33,6 +34,8 @@ set(HEADERS
         Orange.h
         Apple.h
         Main.h
+        OnTimeListener.h
+        FruitFactory.h
         directions/Direction.h
         directions/DirectionUp.h
         directions/DirectionDown.h
