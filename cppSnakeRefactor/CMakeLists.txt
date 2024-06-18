@@ -32,6 +32,7 @@ set(HEADERS
         Fruit.h
         Orange.h
         Apple.h
+        Main.h
         directions/Direction.h
         directions/DirectionUp.h
         directions/DirectionDown.h

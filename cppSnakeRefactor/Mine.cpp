@@ -4,10 +4,14 @@
 #include "Mine.h"
 
 
-void Mine::refreshMine() {
+void Mine::RefreshMine() {
     // 刷新矿
 }
 
-void Mine::mine() {
+Mine::Mine() {
     // 矿逻辑
+}
+
+void Mine::Notified() {
+
 }

@@ -12,18 +12,12 @@ int main(){
 
 }
 */
-#include <graphics.h>
-#include <iostream>
-#include <conio.h>
-#include "Timer.h"
-#include "Game.h"
+#include "Main.h"
+
 
 using namespace std;
 
-#define UP		1
-#define DOWN	2
-#define LEFT	3
-#define RIGHT	4
+
 
 
 
@@ -31,23 +25,25 @@ using namespace std;
 void restartGame();
 void ReInit();
 
-Game game;
 
 
 int main() {
     initgraph(800, 600);
-    game.showOptions();
-    /*以上为结束画面的测试
-     *
-     */
 
     /*
-     * 接下来，1.创建KeyBoardController
+     * 1.创建KeyBoardController
      * 2.创建Game
      * 3.创建ScoreBoard
      * 4.进入InitialGame
      *
      * */
+    shared_ptr<KeyController>   keyController   =   make_shared<KeyController>();
+
+    shared_ptr<Game>            game            =   make_shared<Game>();
+    game->ShowOptions();//TODO:实验显示选项，删除
+
+    shared_ptr<ScoreBoard>      scoreBoard      =   make_shared<ScoreBoard>();
+
 
 
     return 0;

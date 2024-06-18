@@ -9,6 +9,6 @@ KeyController::KeyController() {
     // 构造函数实现
 }
 
-void KeyController::onKeyPressed(int key) {
+void KeyController::OnKeyPressed(int key) {
     // 处理按键事件
 }

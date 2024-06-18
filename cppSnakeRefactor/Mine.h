@@ -4,11 +4,13 @@
 
 #ifndef CPPSNAKEREFACTOR_MINE_H
 #define CPPSNAKEREFACTOR_MINE_H
+#include "Timer.h"
 
-class Mine {
+class Mine : onTimeListener{
 public:
-    void refreshMine();
-    void mine();
+    void RefreshMine();
+    void Notified() override;
+    Mine();
 };
 
 #endif //CPPSNAKEREFACTOR_MINE_H

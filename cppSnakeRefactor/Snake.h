@@ -8,15 +8,15 @@
 class Snake {
 public:
     Snake();
-    void changeDirection(int direction);
-    void move();
-    void updateEatFruit();
-    void up();
-    void down();
-    void left();
-    void right();
-    void changeLength();
-    void changeSpeed();
+    void ChangeDirection(int direction);
+    void SnakeMove();
+    void UpdateEatFruit();
+    void Up();
+    void Down();
+    void Left();
+    void Right();
+    void ChangeLength();
+    void ChangeSpeed();
 };
 
 

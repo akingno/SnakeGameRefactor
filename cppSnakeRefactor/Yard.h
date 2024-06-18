@@ -10,7 +10,7 @@
 class Yard {
 public:
     Yard();
-    bool checkCollision();
+    bool CheckCollision();
 };
 
 

@@ -1,0 +1,6 @@
+按上下改变options时，需要考虑到此时游戏是否在运行
+//所以KeyController需要被游戏通知，当游戏改变状态时
+//所以游戏最好也有个观察者。（否）
+不过KeyController本就可以调到游戏的函数，所以应该在游戏中增加一个得知当前游戏状态的函数用来判断
+新版本enum有指定bool吗？
+所以KeyController在新建时需要一个Game做绑定，故Game的新建也许需要在KeyController之后

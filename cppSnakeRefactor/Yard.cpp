@@ -9,7 +9,7 @@ Yard::Yard() {
     // 初始化院子
 }
 
-bool Yard::checkCollision() {
+bool Yard::CheckCollision() {
     // 检查碰撞
     return false;
 }

@@ -14,7 +14,7 @@
 class KeyController {
 public:
     KeyController();
-    void onKeyPressed(int key);
+    void OnKeyPressed(int key);
 };
 
 

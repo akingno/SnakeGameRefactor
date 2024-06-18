@@ -6,19 +6,17 @@
 Timer::Timer() : running(false), interval(1000) {}
 
 Timer::~Timer() {
-    stop();
+    StopUpdating();
 }
 
-void Timer::start() {
+void Timer::StartUpdating() {
 }
 
-void Timer::stop() {
+void Timer::StopUpdating() {
 
 }
 
-void Timer::addListener() {
+void Timer::AddListener() {
 }
 
-void Timer::notify() {
 
-}

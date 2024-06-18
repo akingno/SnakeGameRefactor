@@ -9,22 +9,20 @@
 #include <functional>
 #include <thread>
 #include <chrono>
-
+#include "OnTimeListener.h"
 class Timer {
 public:
-    class onTimeListener {
-    public:
-        virtual void onTimer() = 0;
-    };
 
     Timer();
     ~Timer();
-    void start();
-    void stop();
-    void addListener();
+    void StartUpdating();
+    void StopUpdating();
+    void AddListener();
+    void onTime();
+
 
 private:
-    void notify();
+
     bool running;
     int interval;
     std::thread timerThread;

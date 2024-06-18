@@ -7,19 +7,19 @@
 
 
 
-void Game::createNewGame() {
+void Game::CreateNewGame() {
     // 初始化新游戏
 }
 
-void Game::changeSnakeDirection(int direction) {
-    snake.changeDirection(direction);
+void Game::ChangeSnakeDirection(int direction) {
+    snake.ChangeDirection(direction);
 }
 
 
 /*
  * 在游戏结束后，显示选项菜单
  * */
-void Game::showOptions(){
+void Game::ShowOptions(){
 
     setcolor(WHITE);
     setfont(50, 0, _T("微软雅黑"));
@@ -28,19 +28,16 @@ void Game::showOptions(){
     HandleGameOverInput();
 }
 
-void Game::onTimer() {
-    // 更新游戏状态
-}
 
 Game::Game() = default;
 
 
-void ReInit() {
+void Game::ReInitGame() {
     std::cout<<"reinit"<<std::endl;
 }
 
 void Game::DrawButtons(Button current) {
-    void restartGame();
+    //void restartGame();
     setfillcolor(BLACK);
     bar(200, 400, 400, 450);
     bar(200, 460, 400, 510);
@@ -69,7 +66,6 @@ void Game::DrawButtons(Button current) {
 }
 
 void Game::HandleGameOverInput() {
-    currentButton = EXIT;
     while (true) {
         if (kbhit()) {
             char c = getch();
@@ -84,11 +80,24 @@ void Game::HandleGameOverInput() {
                     closegraph();
                     exit(0);
                 } else if (currentButton == RESTART) {
-                    ReInit();
+                    ReInitGame();
                     return;
                 }
             }
         }
         Sleep(100);
     }
+}
+
+void Game::InitGame() {
+    /* 1.刷新ScoreBoard
+     * 2.创建Timer和Yard
+     * 3.InitItems：
+     * 3.1.创建蛇
+     * 3.2.创建水果工厂
+     * 3.3.水果工厂刷新水果种类和位置
+     * 3.4.创建地雷
+     * 3.5.地雷刷新位置
+     *
+     */
 }

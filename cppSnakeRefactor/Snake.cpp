@@ -9,38 +9,38 @@ Snake::Snake() {
     // 初始化蛇
 }
 
-void Snake::changeDirection(int direction) {
+void Snake::ChangeDirection(int direction) {
     // 改变方向
 }
 
-void Snake::move() {
+void Snake::SnakeMove() {
     // 移动
 }
 
-void Snake::updateEatFruit() {
+void Snake::UpdateEatFruit() {
     // 更新吃水果逻辑
 }
 
-void Snake::up() {
+void Snake::Up() {
     // 向上
 }
 
-void Snake::down() {
+void Snake::Down() {
     // 向下
 }
 
-void Snake::left() {
+void Snake::Left() {
     // 向左
 }
 
-void Snake::right() {
+void Snake::Right() {
     // 向右
 }
 
-void Snake::changeLength() {
+void Snake::ChangeLength() {
     // 改变长度
 }
 
-void Snake::changeSpeed() {
+void Snake::ChangeSpeed() {
     // 改变速度
 }

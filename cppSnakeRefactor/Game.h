@@ -16,16 +16,16 @@
 enum Button { EXIT, RESTART };
 
 
-class Game : public Timer::onTimeListener {
+class Game {
 public:
     Game();
-    void createNewGame();
-    void changeSnakeDirection(int direction);
-    void showOptions();
+    void CreateNewGame();
+    void ChangeSnakeDirection(int direction);
+    void ShowOptions();
     void HandleGameOverInput();
     void DrawButtons(Button current);
-
-    virtual void onTimer() override;
+    void InitGame();
+    void ReInitGame();
 
 private:
     Timer timer;
@@ -33,7 +33,7 @@ private:
     Mine mine;
     Yard yard;
     bool paused{};
-    Button currentButton;
+    Button currentButton = EXIT;
 };
 
 
