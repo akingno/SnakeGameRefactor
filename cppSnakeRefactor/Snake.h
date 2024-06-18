@@ -5,10 +5,13 @@
 #ifndef CPPSNAKEREFACTOR_SNAKE_H
 #define CPPSNAKEREFACTOR_SNAKE_H
 
+#include "directions/Direction.h"
+
+class Direction;
 class Snake {
 public:
     Snake();
-    void ChangeDirection(int direction);
+    void ChangeDirection(const Direction* direction);
     void SnakeMove();
     void UpdateEatFruit();
     void Up();

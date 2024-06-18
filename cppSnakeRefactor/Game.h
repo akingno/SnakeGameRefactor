@@ -11,29 +11,37 @@
 #include "Snake.h"
 #include "Mine.h"
 #include "Yard.h"
+#include "KeyController.h"
+#include "ScoreBoard.h"
 #include <conio.h>
+#include <memory>
 
 enum Button { EXIT, RESTART };
 
 
 class Game {
 public:
-    Game();
-    void CreateNewGame();
-    void ChangeSnakeDirection(int direction);
-    void ShowOptions();
-    void HandleGameOverInput();
-    void DrawButtons(Button current);
-    void InitGame();
-    void ReInitGame();
+                                        Game(std::shared_ptr<ScoreBoard> &scoreBoard,
+                                             std::shared_ptr<KeyController> &keyController);
+    void                                ChangeSnakeDirection(const Direction *direction);
+    void                                CreateNewGame();
+    void                                ShowOptions();
+    void                                HandleGameOverInput();
+    void                                DrawButtons(Button current);
+    void                                InitGame();
+    void                                ReInitGame();
+    Button                              PlayGame();
 
 private:
-    Timer timer;
-    Snake snake;
-    Mine mine;
-    Yard yard;
-    bool paused{};
-    Button currentButton = EXIT;
+    bool                                m_paused            {false};
+    Button                              m_currentButton     {EXIT};
+    std::shared_ptr<ScoreBoard>         m_scoreBoard;
+    std::shared_ptr<KeyController>      m_keyController;
+    std::shared_ptr<Timer>              m_timer;
+    std::shared_ptr<Yard>               m_yard;
+
+
+
 };
 
 

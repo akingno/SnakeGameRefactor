@@ -5,6 +5,7 @@
 #ifndef CPPSNAKEREFACTOR_MINE_H
 #define CPPSNAKEREFACTOR_MINE_H
 #include "Timer.h"
+#include <iostream>
 
 class Mine : onTimeListener{
 public:

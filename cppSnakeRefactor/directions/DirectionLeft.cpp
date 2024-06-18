@@ -4,6 +4,6 @@
 
 #include "DirectionLeft.h"
 
-void DirectionLeft::turn(Snake* snake) {
+void DirectionLeft::turn(std::shared_ptr<Snake> snake) {
 // 实现蛇向左移动的逻辑
 }

@@ -10,7 +10,7 @@
 
 class DirectionUp : public Direction {
 public:
-    void turn(Snake* snake) override;
+    void turn(std::shared_ptr<Snake> snake) override;
 };
 
 

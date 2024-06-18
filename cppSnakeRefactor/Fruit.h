@@ -4,7 +4,8 @@
 
 #ifndef CPPSNAKEREFACTOR_FRUIT_H
 #define CPPSNAKEREFACTOR_FRUIT_H
-
+#include<iostream>
+#include<memory>
 
 
 class Fruit {

@@ -8,11 +8,10 @@
 #include "Fruit.h"
 #include "Apple.h"
 #include "Orange.h"
-#include <iostream>
 class FruitFactory{
 public:
     FruitFactory();
-    Fruit* RefreshFruit();
+    std::shared_ptr<Fruit> RefreshFruit();
 
 };
 

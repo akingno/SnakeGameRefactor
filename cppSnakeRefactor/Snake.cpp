@@ -3,13 +3,14 @@
 //
 
 #include "Snake.h"
+#include "directions/Direction.h"
 
 
 Snake::Snake() {
     // 初始化蛇
 }
 
-void Snake::ChangeDirection(int direction) {
+void Snake::ChangeDirection(const Direction* direction) {
     // 改变方向
 }
 

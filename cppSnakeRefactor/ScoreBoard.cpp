@@ -4,18 +4,20 @@
 
 #include "ScoreBoard.h"
 
-ScoreBoard::ScoreBoard() {
+ScoreBoard::ScoreBoard(): m_score(0){
     // 构造函数实现
 }
 
 void ScoreBoard::RefreshScoreboard() {
-    // 刷新计分板
+    m_score = 0;
 }
 
-void ScoreBoard::ShowFinalScore() {
+void ScoreBoard::ShowFinalScore() const{
+    std::cout<<"Final Score"<<m_score<<'\n';
     // 显示最终分数
 }
 
 void ScoreBoard::AddScore(int score) {
     // 增加分数
+    m_score += score;
 }

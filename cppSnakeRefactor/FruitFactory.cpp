@@ -8,7 +8,8 @@ FruitFactory::FruitFactory(){
 
 }
 
-Fruit* FruitFactory::RefreshFruit(){
+std::shared_ptr<Fruit> FruitFactory::RefreshFruit(){
     std::cout<<"Refresh Fruit"<<'\n';
-    return new Apple(0,0);
+
+    return nullptr;
 }

@@ -7,10 +7,13 @@
 
 
 #include "../Snake.h"
+#include<iostream>
+#include<memory>
+class Snake;
 
 class Direction {
 public:
-    virtual void turn(Snake* snake) = 0;
+    virtual void turn(std::shared_ptr<Snake> snake) = 0;
 };
 
 

@@ -4,15 +4,15 @@
 
 
 #include "Game.h"
-
+using namespace std;
 
 
 void Game::CreateNewGame() {
     // 初始化新游戏
 }
 
-void Game::ChangeSnakeDirection(int direction) {
-    snake.ChangeDirection(direction);
+void Game::ChangeSnakeDirection(const Direction *direction) {
+    m_yard -> ChangeSnakeDirection(direction);
 }
 
 
@@ -24,12 +24,9 @@ void Game::ShowOptions(){
     setcolor(WHITE);
     setfont(50, 0, _T("微软雅黑"));
     outtextxy(150, 265, _T("YOU LOSE!"));
-    DrawButtons(currentButton);
+    DrawButtons(m_currentButton);
     HandleGameOverInput();
 }
-
-
-Game::Game() = default;
 
 
 void Game::ReInitGame() {
@@ -70,16 +67,16 @@ void Game::HandleGameOverInput() {
         if (kbhit()) {
             char c = getch();
             if (c == 'w' || c == 'W') {
-                currentButton = (currentButton == EXIT) ? RESTART : EXIT;
-                DrawButtons(currentButton);
+                m_currentButton = (m_currentButton == EXIT) ? RESTART : EXIT;
+                DrawButtons(m_currentButton);
             } else if (c == 's' || c == 'S') {
-                currentButton = (currentButton == RESTART) ? EXIT : RESTART;
-                DrawButtons(currentButton);
+                m_currentButton = (m_currentButton == RESTART) ? EXIT : RESTART;
+                DrawButtons(m_currentButton);
             } else if (c == 13) { // Enter key
-                if (currentButton == EXIT) {
+                if (m_currentButton == EXIT) {
                     closegraph();
                     exit(0);
-                } else if (currentButton == RESTART) {
+                } else if (m_currentButton == RESTART) {
                     ReInitGame();
                     return;
                 }
@@ -93,11 +90,26 @@ void Game::InitGame() {
     /* 1.刷新ScoreBoard
      * 2.创建Timer和Yard
      * 3.InitItems：
-     * 3.1.创建蛇
-     * 3.2.创建水果工厂
-     * 3.3.水果工厂刷新水果种类和位置
-     * 3.4.创建地雷
-     * 3.5.地雷刷新位置
+     *
      *
      */
+    m_scoreBoard -> RefreshScoreboard();
+    m_timer         =       make_shared<Timer>();
+    m_yard          =       make_shared<Yard>();
+    m_yard -> InitItems();
+
 }
+
+Button Game::PlayGame() {
+    //开始一个游戏循环，返回一局游戏结束后的玩家选项
+
+    return EXIT;
+}
+
+Game::Game(shared_ptr <ScoreBoard> &scoreBoard,
+           shared_ptr <KeyController> &keyController) :
+           m_scoreBoard(scoreBoard), m_keyController(keyController){
+
+}
+
+

@@ -5,7 +5,7 @@
 
 
 void Mine::RefreshMine() {
-    // 刷新矿
+    std::cout<<"Refresh"<<"\n";
 }
 
 Mine::Mine() {
