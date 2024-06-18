@@ -5,7 +5,7 @@
 #include "Fruit.h"
 
 
-Fruit::Fruit(){
+Fruit::Fruit(const std::pair<int,int> pr_location):pr_location(pr_location){
     // 构造函数实现
 }
 

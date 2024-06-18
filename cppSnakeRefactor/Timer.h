@@ -13,20 +13,20 @@
 class Timer {
 public:
 
-    Timer();
-    ~Timer();
-    void StartUpdating();
-    void StopUpdating();
-    void AddListener();
-    void onTime();
+                                    Timer();
+                                    ~Timer();
+    void                            StartUpdating();
+    void                            StopUpdating();
+    void                            AddListener();
+    void                            onTime();
 
 
 private:
 
-    bool running;
-    int interval;
-    std::thread timerThread;
-    std::vector<onTimeListener*> listeners;
+    bool                            running;
+    int                             interval;
+    std::thread                     timerThread;
+    std::vector<onTimeListener*>    listeners;
 };
 
 #endif //CPPSNAKEREFACTOR_TIMER_H

@@ -9,9 +9,10 @@
 
 class Mine : onTimeListener{
 public:
-    void RefreshMine();
-    void Notified() override;
-    Mine();
+                                Mine();
+    void                        RefreshMine();
+    void                        Notified() override;
+
 };
 
 #endif //CPPSNAKEREFACTOR_MINE_H

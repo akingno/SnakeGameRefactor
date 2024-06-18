@@ -4,12 +4,11 @@
 
 
 #include "Apple.h"
-
-Apple::Apple(int x,int y){
+#include<utility>
+Apple::Apple(std::pair<int,int> pr_location) : Fruit(pr_location){
     // 构造函数实现
     i_nutrition     =   {1};
-    i_location_x    =   {x};
-    i_location_y    =   {y};
+
 }
 
 void Apple::RefreshFruit() {

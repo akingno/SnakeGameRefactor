@@ -7,7 +7,7 @@
 
 class onTimeListener {
 public:
-    virtual void Notified() = 0;
+    virtual void                    Notified() = 0;
 };
 
 

@@ -13,8 +13,8 @@
 
 class KeyController {
 public:
-    KeyController();
-    void OnKeyPressed(int key);
+                            KeyController();
+    void                    OnKeyPressed(int key);
 };
 
 

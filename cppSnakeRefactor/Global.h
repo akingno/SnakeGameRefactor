@@ -6,8 +6,8 @@
 #define CPPSNAKEREFACTOR_GLOBAL_H
 
 namespace Globals{
-    constexpr int BLOCK_SIZE            =       20;
-    constexpr int BLOCK_SIZE_HALF       =       10;
+    constexpr int                   BLOCK_SIZE            =         20;
+    constexpr int                   BLOCK_SIZE_HALF       =         10;
 
 
 

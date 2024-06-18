@@ -11,7 +11,7 @@ void Game::CreateNewGame() {
     // 初始化新游戏
 }
 
-void Game::ChangeSnakeDirection(const Direction *direction) {
+void Game::ChangeSnakeDirection(Direction *direction) {
     m_yard -> ChangeSnakeDirection(direction);
 }
 
@@ -97,18 +97,52 @@ void Game::InitGame() {
     m_timer         =       make_shared<Timer>();
     m_yard          =       make_shared<Yard>();
     m_yard -> InitItems();
+    m_timer -> StartUpdating();
 
 }
 
 Button Game::PlayGame() {
     //开始一个游戏循环，返回一局游戏结束后的玩家选项
+    while(true){
+        /*TODO:1. snake move
+         *2. check collision(called by snake with its body, judged by yard)
+         *3. if dead: end game, return the option
+         *4.
+         * */
+
+
+    }
+
 
     return EXIT;
 }
 
+
+
 Game::Game(shared_ptr <ScoreBoard> &scoreBoard,
            shared_ptr <KeyController> &keyController) :
            m_scoreBoard(scoreBoard), m_keyController(keyController){
+
+}
+
+Button Game::EndGame() {
+    /*
+     * TODO:
+     * 1.StopLooping()
+     * 2.destory snake();
+     * 3.stop timer updating
+     * 4.draw score from scoreboard
+     * 5.ShowOptions(it will get input by itself)TODO:此处也要改为用keycontroller
+     * 6.根据输入返回Button值
+     *
+     *
+     *
+     * */
+    cout<<"game end"<<"\n";
+    return EXIT;
+}
+
+void Game::StopLooping() {
 
 }
 

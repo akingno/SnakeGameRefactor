@@ -32,7 +32,7 @@ bool Yard::CheckCollision() {
     return false;
 }
 
-void Yard::ChangeSnakeDirection(const Direction *direction) {
+void Yard::ChangeSnakeDirection(Direction *direction) {
     m_snake->ChangeDirection(direction);
 
 }

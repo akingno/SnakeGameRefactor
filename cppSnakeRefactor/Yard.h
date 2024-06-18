@@ -18,7 +18,7 @@ public:
                                         Yard();
     bool                                CheckCollision();
     void                                InitItems();
-    void                                ChangeSnakeDirection(const Direction *direction);
+    void                                ChangeSnakeDirection(Direction *direction);
 
 private:
     std::shared_ptr<Snake>              m_snake;

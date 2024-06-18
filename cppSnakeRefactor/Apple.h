@@ -9,10 +9,11 @@
 
 class Apple : public Fruit {
 public:
-    Apple(int x, int y);
-    void RefreshFruit() override;
-    void Eaten() override;
-    int getFruitScore() override;
+                                Apple(std::pair<int,int> pr_location);
+    void                        RefreshFruit() override;
+    void                        Eaten() override;
+    int                         getFruitScore() override;
+
 };
 
 

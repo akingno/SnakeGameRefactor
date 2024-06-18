@@ -10,8 +10,8 @@
 #include "Orange.h"
 class FruitFactory{
 public:
-    FruitFactory();
-    std::shared_ptr<Fruit> RefreshFruit();
+                                    FruitFactory();
+    std::shared_ptr<Fruit>          RefreshFruit();
 
 };
 

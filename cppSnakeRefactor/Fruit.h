@@ -10,15 +10,14 @@
 
 class Fruit {
 public:
-    Fruit();
-    virtual void RefreshFruit();
-    virtual void Eaten();
-    virtual int getFruitScore();
+                                Fruit(std::pair<int,int> pr_location);
+    virtual void                RefreshFruit();
+    virtual void                Eaten();
+    virtual int                 getFruitScore();
 
 protected:
-    int i_nutrition;
-    int i_location_x;
-    int i_location_y;
+    int                         i_nutrition;
+    std::pair<int,int>          pr_location;
 };
 
 
