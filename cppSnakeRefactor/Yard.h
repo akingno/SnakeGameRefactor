@@ -16,9 +16,11 @@
 class Yard {
 public:
                                         Yard();
-    bool                                CheckCollision();
+    bool                                CheckIsCollision();
     void                                InitItems();
     void                                ChangeSnakeDirection(Direction *direction);
+    void                                MoveSnake();
+    void                                drawItems();
 
 private:
     std::shared_ptr<Snake>              m_snake;

@@ -23,8 +23,8 @@ public:
                                              std::shared_ptr<KeyController> &keyController);
     void                                ChangeSnakeDirection(Direction *direction);
     void                                CreateNewGame();
-    void                                ShowOptions();
-    void                                HandleGameOverInput();
+    Button ShowOptions();
+    Button HandleGameOverInput();
     void                                DrawButtons(Button current);
     void                                InitGame();
     void                                ReInitGame();

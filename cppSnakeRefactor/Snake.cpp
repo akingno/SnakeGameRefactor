@@ -24,13 +24,13 @@ void Snake::ChangeDirection(Direction* direction) {
 void Snake::SnakeMove() {
     // 移动
 
-    for(int i = vec_body.size(); i > 0; --i){
+    for(int i = vec_body.size() - 1 ; i > 0; --i){
         cout<<"vec_body size:"<< vec_body.size()<<endl;//TODO: DELETE
         vec_body[i]             =       vec_body[i-1];
     }
     vec_body[0].first       +=      pr_direction.first      * Globals::BLOCK_SIZE;
     vec_body[0].second      +=      pr_direction.second     * Globals::BLOCK_SIZE;
-
+    cout << "snake:snakemove, head loc:" << vec_body[0].first << "," << vec_body[0].second << endl;
 }
 
 void Snake::UpdateEatFruit() {

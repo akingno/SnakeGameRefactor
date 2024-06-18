@@ -12,6 +12,8 @@ public:
                                 Mine();
     void                        RefreshMine();
     void                        Notified() override;
+private:
+    std::pair<int,int>          pr_location;
 
 };
 

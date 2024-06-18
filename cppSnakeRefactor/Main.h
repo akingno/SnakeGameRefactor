@@ -14,6 +14,7 @@
 #include "KeyController.h"
 #include "ScoreBoard.h"
 #include "Global.h"
+#include <windows.h>
 
 /*
  * TODO:此处方向也许需要删除

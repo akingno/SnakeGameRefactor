@@ -38,12 +38,12 @@ int main() {
      *
      * */
     shared_ptr<KeyController>   keyController   =   make_shared<KeyController>();
+    //此处开启keyController的线程
 
-
-    setfillcolor(GREEN);//TODO:没填上绿色
+    setfillcolor(GREEN);
     solidrectangle(0,0,Globals::BLOCK_SIZE,Globals::BLOCK_SIZE);
-    _getch();				// 按任意键继续
-    closegraph();			// 关闭绘图窗口
+    //_getch();				// 按任意键继续
+    //closegraph();			// 关闭绘图窗口
     //game->ShowOptions();//TODO:实验显示选项，删除
 
     shared_ptr<ScoreBoard>      scoreBoard      =   make_shared<ScoreBoard>();
@@ -51,17 +51,19 @@ int main() {
     game -> InitGame();
 
     while(true){
-        Button option = game->PlayGame();
+        Button option = game -> PlayGame();
         if(option == EXIT){
-            //return 0;
-            continue;
+            cout<<"main:exit"<<endl;
+            //TODO:此处合并keyController的线程
+            return 0;
+            //continue;
         }
         else if(option == RESTART){
-            game ->ReInitGame();
+            game -> ReInitGame();
             continue;
         }
         else{
-            cout<<"wrong"<<endl;
+            cout<<"main:wrong"<<endl;
         }
     }
 

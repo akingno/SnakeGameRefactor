@@ -19,13 +19,13 @@ void Game::ChangeSnakeDirection(Direction *direction) {
 /*
  * 在游戏结束后，显示选项菜单
  * */
-void Game::ShowOptions(){
+Button Game::ShowOptions(){
 
     setcolor(WHITE);
     setfont(50, 0, _T("微软雅黑"));
     outtextxy(150, 265, _T("YOU LOSE!"));
     DrawButtons(m_currentButton);
-    HandleGameOverInput();
+    return HandleGameOverInput();
 }
 
 
@@ -62,7 +62,7 @@ void Game::DrawButtons(Button current) {
     outtextxy(250, 480, _T("Restart"));
 }
 
-void Game::HandleGameOverInput() {
+Button Game::HandleGameOverInput() {
     while (true) {
         if (kbhit()) {
             char c = getch();
@@ -75,10 +75,10 @@ void Game::HandleGameOverInput() {
             } else if (c == 13) { // Enter key
                 if (m_currentButton == EXIT) {
                     closegraph();
-                    exit(0);
+                    return EXIT;
                 } else if (m_currentButton == RESTART) {
                     ReInitGame();
-                    return;
+                    return RESTART;
                 }
             }
         }
@@ -107,12 +107,23 @@ Button Game::PlayGame() {
         /*TODO:1. snake move
          *2. check collision(called by snake with its body, judged by yard)
          *3. if dead: end game, return the option
-         *4.
+         *4. if not dead, draw
+         *5. sleep
          * */
+    m_yard -> MoveSnake();
+    cout << "game:snake move"<<endl;
+    if(m_yard -> CheckIsCollision() == false){
+        //TODO:DRAW
+        m_yard -> drawItems();
+        Sleep(1000);
+
+    }
+    else{
+        return EndGame();
+    }
 
 
     }
-
 
     return EXIT;
 }

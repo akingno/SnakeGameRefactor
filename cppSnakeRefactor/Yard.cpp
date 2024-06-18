@@ -27,12 +27,23 @@ void Yard::InitItems() {
 }
 
 
-bool Yard::CheckCollision() {
-    // 检查碰撞
+bool Yard::CheckIsCollision() {
+    // 检查碰撞墙，身体，雷，如果撞上就返回true
+    // 如果撞上水果，进行update fruit，返回false
+    // 未撞上也返回false
     return false;
 }
 
 void Yard::ChangeSnakeDirection(Direction *direction) {
     m_snake->ChangeDirection(direction);
 
+}
+
+void Yard::MoveSnake() {
+    cout<<"yard:snakemove"<<endl;
+    m_snake -> SnakeMove();
+}
+
+void Yard::drawItems() {
+    cout<<"drawing"<<endl;
 }
