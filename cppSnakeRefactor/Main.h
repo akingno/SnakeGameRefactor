@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "KeyController.h"
 #include "ScoreBoard.h"
+#include "Global.h"
 
 /*
  * TODO:此处方向也许需要删除
