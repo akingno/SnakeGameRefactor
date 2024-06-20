@@ -12,7 +12,7 @@ public:
                             ScoreBoard();
     void                    RefreshScoreboard();
     void                    ShowFinalScore() const;
-    void                    AddScore(int score);
+    void                    UpdateScore(int score);
 private:
     int                     m_score;
 };

@@ -11,14 +11,16 @@
 #include <utility>
 #include <mutex>
 #include <memory>
+#include "Fruit.h"
 
+class Fruit;
 class Direction;
 class Snake : public Drawable, public std::enable_shared_from_this<Snake>{
 public:
                                     Snake();
     void                            ChangeDirection(std::shared_ptr<Direction>& direction);
     void                            SnakeMove();
-    void                            UpdateEatFruit();
+    void                            UpdateEatFruit(std::shared_ptr<Fruit>& fruit);
     void                            Up();
     void                            Down();
     void                            Left();

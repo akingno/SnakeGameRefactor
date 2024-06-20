@@ -15,7 +15,9 @@ void Orange::RefreshFruit() {
     // 刷新橙子
 }
 
-void Orange::Eaten() {
+void Orange::Eaten(std::shared_ptr<Snake> snake) {
+    snake->ChangeLength();
+    snake->ChangeSpeed();
     // 橙子被吃掉
 }
 

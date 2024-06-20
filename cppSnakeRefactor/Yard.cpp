@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Yard::Yard() = default;
+Yard::Yard(std::shared_ptr<ScoreBoard> &scoreBoard) :m_scoreBoard(scoreBoard){}
 
 void Yard::InitItems() {
     /* 3.1.创建蛇
@@ -31,16 +31,19 @@ void Yard::InitItems() {
 
 bool Yard::CheckIsCollision() {
     // 检查碰撞墙，身体，雷，如果撞上就返回true 1
-    // 如果撞上水果，进行update fruit，返回false 1
-    // 未撞上也返回false 1
+    // 如果撞上水果，进行update fruit，返回false
+    // 未撞上返回false 1
     if(m_snake -> CheckIsCollision(m_mine -> GetLocation())){
         return true;
     }
     if(m_snake -> CheckEatFruit(m_fruit -> GetLocation())){
-        m_snake -> UpdateEatFruit();
+        m_snake -> UpdateEatFruit(m_fruit);
+        m_scoreBoard->UpdateScore(m_fruit->GetFruitScore());
     }
     return false;
 }
+
+
 
 void Yard::ChangeSnakeDirection(shared_ptr<Direction>& direction) {
     m_snake->ChangeDirection(direction);
@@ -52,11 +55,11 @@ void Yard::MoveSnake() {
     m_snake -> SnakeMove();
 }
 
-void Yard::drawItems() {
+void Yard::DrawItems() {
     /*
      * 1. 刷新背景 1
      * 2. 绘制蛇  1
-     * 3. 绘制苹果
+     * 3. 绘制苹果 1
      * 4. 绘制地雷 1
      * */
     cleardevice();

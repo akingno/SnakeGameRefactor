@@ -6,7 +6,6 @@
 
 
 
-
 using namespace std;
 
 Snake::Snake() {
@@ -35,7 +34,9 @@ void Snake::SnakeMove() {
     cout << "snake:snakemove, head loc:" << vec_body[0].first << "," << vec_body[0].second << endl;
 }
 
-void Snake::UpdateEatFruit() {
+void Snake::UpdateEatFruit(shared_ptr<Fruit>& fruit) {
+    fruit->Eaten(shared_from_this());
+
     // 更新吃水果逻辑
     cout<<"Snake: EatFruit and Update"<< endl;
 }
@@ -74,6 +75,9 @@ void Snake::ChangeLength() {
 }
 
 void Snake::ChangeSpeed() {
+    if(Globals::sleepGap > 100){
+        Globals::sleepGap -= 100;
+    }
     // 改变速度
 }
 

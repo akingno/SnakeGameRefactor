@@ -38,6 +38,7 @@ void Game::ReInitGame() {
      * 清分数
      * 水果工厂刷新水果
      * 刷新地雷
+     * 刷新globals::gap
      * */
 }
 
@@ -103,8 +104,8 @@ void Game::InitGame() {
      */
     m_scoreBoard -> RefreshScoreboard();
     m_timer         =       make_shared<Timer>();
-    m_yard          =       make_shared<Yard>();
-    m_yard -> InitItems();
+    m_yard          =       make_shared<Yard>(m_scoreBoard);
+    m_yard  -> InitItems();
     m_timer -> StartUpdating();
     isGameUpdating  =       true;
 
@@ -121,9 +122,9 @@ Button Game::PlayGame() {
          * */
     m_yard -> MoveSnake();
     cout << "game:snake move"<<endl;
-    if(!m_yard->CheckIsCollision()){
-        m_yard -> drawItems();
-        Sleep(1000);
+    if(!m_yard -> CheckIsCollision()){
+        m_yard -> DrawItems();
+        Sleep(Globals::sleepGap);
 
     }
     else{

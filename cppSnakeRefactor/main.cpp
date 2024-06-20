@@ -26,6 +26,7 @@ using namespace std;
 void restartGame();
 void ReInit();//TODO:是否保留？
 std::atomic<bool> Globals::running(true);
+int Globals::sleepGap = 800;
 
 
 int main() {

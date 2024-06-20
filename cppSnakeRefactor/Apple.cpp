@@ -15,7 +15,8 @@ void Apple::RefreshFruit() {
     // 刷新苹果
 }
 
-void Apple::Eaten() {
+void Apple::Eaten(std::shared_ptr<Snake> snake) {
+    snake->ChangeLength();
     // 苹果被吃掉
 }
 

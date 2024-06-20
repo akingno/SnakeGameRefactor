@@ -17,7 +17,8 @@ void ScoreBoard::ShowFinalScore() const{
     // 显示最终分数
 }
 
-void ScoreBoard::AddScore(int score) {
+void ScoreBoard::UpdateScore(int score) {
     // 增加分数
     m_score += score;
+    std::cout<<"score now"<< m_score<<"\n";
 }

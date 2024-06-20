@@ -12,6 +12,7 @@ namespace Globals{
     constexpr int                   BLOCK_SIZE_HALF       =         10;
     constexpr int                   GRAPH_WEIGHT          =         800;
     constexpr int                   GRAPH_HEIGHT          =         600;
+    extern    int                   sleepGap;
     extern std::atomic<bool>        running;
 
 
