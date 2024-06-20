@@ -28,7 +28,7 @@ void ReInit();
 
 
 int main() {
-    initgraph(800, 600);
+    initgraph(Globals::GRAPH_WEIGHT, Globals::GRAPH_HEIGHT);
 
     /*
      * 1.创建KeyBoardController 1
@@ -46,9 +46,6 @@ int main() {
         keyController -> ListeningKeyPressed();
     });
 
-
-    setfillcolor(GREEN);
-    solidrectangle(0,0,Globals::BLOCK_SIZE,Globals::BLOCK_SIZE);
 
     shared_ptr<ScoreBoard>      scoreBoard      =   make_shared<ScoreBoard>();
     shared_ptr<Game>            game            =   make_shared<Game>(scoreBoard,keyController);

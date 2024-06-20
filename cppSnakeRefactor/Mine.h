@@ -5,13 +5,18 @@
 #ifndef CPPSNAKEREFACTOR_MINE_H
 #define CPPSNAKEREFACTOR_MINE_H
 #include "Timer.h"
+#include "Drawable.h"
 #include <iostream>
+#include <random>
 
-class Mine : onTimeListener{
+class Mine : onTimeListener, Drawable{
 public:
                                 Mine();
     void                        RefreshMine();
-    void                        Notified() override;
+    void                        Notified()              override;
+    void                        Draw()                  override;
+    std::pair<int,int>&         GetLocation();
+
 private:
     std::pair<int,int>          pr_location;
 

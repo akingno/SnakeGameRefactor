@@ -9,10 +9,11 @@
 
 class Orange : public Fruit {
 public:
-                            Orange(std::pair<int,int> pr_location);
-    void                    RefreshFruit() override;
-    void                    Eaten() override;
-    int                     getFruitScore() override;
+                                Orange(std::pair<int,int> pr_location);
+    void                        RefreshFruit()                                  override;
+    void                        Eaten()                                         override;
+    int                         GetFruitScore()                         const   override;
+    void                        Draw()                                          override;
 };
 
 

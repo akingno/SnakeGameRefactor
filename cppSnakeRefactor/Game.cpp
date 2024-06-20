@@ -112,7 +112,7 @@ Button Game::PlayGame() {
          * */
     m_yard -> MoveSnake();
     cout << "game:snake move"<<endl;
-    if(m_yard -> CheckIsCollision() == false){
+    if(!m_yard->CheckIsCollision()){
         //TODO:DRAW
         m_yard -> drawItems();
         Sleep(1000);

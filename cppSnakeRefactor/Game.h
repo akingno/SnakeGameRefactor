@@ -14,7 +14,6 @@
 #include <conio.h>
 #include <memory>
 
-
 enum Button { EXIT, RESTART };
 
 

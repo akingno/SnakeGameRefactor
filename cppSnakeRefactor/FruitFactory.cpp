@@ -4,12 +4,29 @@
 
 #include "FruitFactory.h"
 
-FruitFactory::FruitFactory(){
 
-}
+using namespace std;
+FruitFactory::FruitFactory() : distribHeight(0,Globals::GRAPH_HEIGHT - Globals::BLOCK_SIZE),
+                                distribWeight(0,Globals::GRAPH_WEIGHT - Globals::BLOCK_SIZE),
+                                    distriType(0,2){}
 
 std::shared_ptr<Fruit> FruitFactory::RefreshFruit(){
     std::cout<<"Refresh Fruit"<<'\n';
 
+    random_device rd;
+    mt19937 gen(rd());
+
+    int loc_first               =   distribWeight(gen);
+    int loc_second              =   distribHeight(gen);
+
+    double  type_possibility    =   distriType(gen);
+
+    if(type_possibility > 0 && type_possibility <=1){
+        return make_shared<Apple>(pair<int,int>(loc_first,loc_second));
+    }
+    if(type_possibility > 1){
+        return make_shared<Orange>(pair<int,int>(loc_first,loc_second));
+    }
+    cerr<<"FruitFactory:Error in randomly generating fruit"<<endl;
     return nullptr;
 }

@@ -7,6 +7,7 @@
 
 #include<iostream>
 #include<memory>
+#include <graphics.h>
 #include "Snake.h"
 #include "Mine.h"
 #include "FruitFactory.h"
@@ -21,12 +22,15 @@ public:
     void                                ChangeSnakeDirection(Direction *direction);
     void                                MoveSnake();
     void                                drawItems();
+    bool                                CheckIsHide(std::shared_ptr<Fruit> &fruit);
 
 private:
     std::shared_ptr<Snake>              m_snake;
     std::shared_ptr<Mine>               m_mine;
     std::shared_ptr<FruitFactory>       m_fruitFactory;
     std::shared_ptr<Fruit>              m_fruit;
+
+    std::shared_ptr<Fruit> GenerateNewFruit();
 };
 
 

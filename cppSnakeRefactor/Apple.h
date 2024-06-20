@@ -10,10 +10,10 @@
 class Apple : public Fruit {
 public:
                                 Apple(std::pair<int,int> pr_location);
-    void                        RefreshFruit() override;
-    void                        Eaten() override;
-    int                         getFruitScore() override;
-
+    void                        RefreshFruit()                                  override;
+    void                        Eaten()                                         override;
+    int                         GetFruitScore()                         const   override;
+    void                        Draw()                                          override;
 };
 
 

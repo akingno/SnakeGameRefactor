@@ -19,7 +19,14 @@ void Apple::Eaten() {
     // 苹果被吃掉
 }
 
-int Apple::getFruitScore() {
-    // 获取苹果分数
-    return 0;
+int Apple::GetFruitScore() const{
+    return i_nutrition;
+}
+
+void Apple::Draw() {
+    setfillcolor(RED);
+    solidcircle(pr_location.first + Globals::BLOCK_SIZE_HALF,
+                pr_location.second + Globals::BLOCK_SIZE_HALF,
+                Globals::BLOCK_SIZE_HALF);
+
 }

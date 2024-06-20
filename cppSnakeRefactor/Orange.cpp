@@ -19,7 +19,15 @@ void Orange::Eaten() {
     // 橙子被吃掉
 }
 
-int Orange::getFruitScore() {
+int Orange::GetFruitScore() const{
     // 获取橙子分数
-    return 0;
+    return i_nutrition;
+}
+
+void Orange::Draw() {
+    setfillcolor(YELLOW);
+    solidcircle(pr_location.first + Globals::BLOCK_SIZE_HALF,
+                pr_location.second + Globals::BLOCK_SIZE_HALF,
+                Globals::BLOCK_SIZE_HALF);
+
 }
