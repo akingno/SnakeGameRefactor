@@ -6,8 +6,8 @@
 
 
 using namespace std;
-FruitFactory::FruitFactory() : distribHeight(0,Globals::GRAPH_HEIGHT / Globals::BLOCK_SIZE),
-                                distribWeight(0,Globals::GRAPH_WEIGHT / Globals::BLOCK_SIZE),
+FruitFactory::FruitFactory() : distribHeight(0,(Globals::GRAPH_HEIGHT - Globals::BLOCK_SIZE) / Globals::BLOCK_SIZE),
+                                distribWeight(0,(Globals::GRAPH_WEIGHT - Globals::BLOCK_SIZE) / Globals::BLOCK_SIZE),
                                     distriType(0,2){}
 
 std::shared_ptr<Fruit> FruitFactory::RefreshFruit(){
@@ -20,6 +20,8 @@ std::shared_ptr<Fruit> FruitFactory::RefreshFruit(){
     int loc_second              =   distribHeight(gen) * Globals::BLOCK_SIZE;
 
     double  type_possibility    =   distriType(gen);
+
+    cout<<"New Fruit location: ("<<loc_first<<","<<loc_second<<")"<<endl;
 
     if(type_possibility > 0 && type_possibility <=1){
         return make_shared<Apple>(pair<int,int>(loc_first,loc_second));

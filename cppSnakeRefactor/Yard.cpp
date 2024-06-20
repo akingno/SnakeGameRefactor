@@ -38,6 +38,7 @@ bool Yard::CheckIsCollision() {
     }
     if(m_snake -> CheckEatFruit(m_fruit -> GetLocation())){
         m_snake -> UpdateEatFruit(m_fruit);
+        m_fruit = GenerateNewFruit();
         m_scoreBoard->UpdateScore(m_fruit->GetFruitScore());
     }
     return false;
@@ -61,12 +62,14 @@ void Yard::DrawItems() {
      * 2. 绘制蛇  1
      * 3. 绘制苹果 1
      * 4. 绘制地雷 1
+     * 5. 绘制分数 1
      * */
     cleardevice();
     m_snake -> Draw();
     m_fruit -> Draw();
 
     m_mine -> Draw();
+    m_scoreBoard -> DrawCurrentScore();
     cout<<"drawing"<<endl;
 }
 
@@ -84,6 +87,7 @@ bool Yard::CheckIsHide(shared_ptr<Fruit> &fruit) {
 std::shared_ptr<Fruit> Yard::GenerateNewFruit() {
     int max_iteration = 1000;
     int random_times = 0;
+
 
     auto fruit = m_fruitFactory -> RefreshFruit();
 

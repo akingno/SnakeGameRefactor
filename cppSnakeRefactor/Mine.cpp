@@ -8,8 +8,8 @@ void Mine::RefreshMine() {
     cout<<"Mine:Refresh Mine"<<"\n";
     random_device rd;
     mt19937 gen(rd());
-    uniform_int_distribution<> distribWeight(0,Globals::GRAPH_WEIGHT / Globals::BLOCK_SIZE);
-    uniform_int_distribution<> distribHeight(0,Globals::GRAPH_HEIGHT / Globals::BLOCK_SIZE);
+    uniform_int_distribution<> distribWeight(0,(Globals::GRAPH_WEIGHT - Globals::BLOCK_SIZE) / Globals::BLOCK_SIZE);
+    uniform_int_distribution<> distribHeight(0,(Globals::GRAPH_HEIGHT - Globals::BLOCK_SIZE) / Globals::BLOCK_SIZE);
 
     pr_location.first   =   distribWeight(gen) * Globals::BLOCK_SIZE;
     pr_location.second  =   distribHeight(gen) * Globals::BLOCK_SIZE;

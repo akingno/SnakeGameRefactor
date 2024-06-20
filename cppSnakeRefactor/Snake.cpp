@@ -70,7 +70,7 @@ void Snake::Right() {
 }
 
 void Snake::ChangeLength() {
-    vec_body.emplace_back(-1,-1);
+    vec_body.emplace_back(-Globals::BLOCK_SIZE,-Globals::BLOCK_SIZE);
     // 改变长度
 }
 
