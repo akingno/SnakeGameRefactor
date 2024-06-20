@@ -24,7 +24,6 @@ void ScoreBoard::UpdateScore(int score) {
 }
 
 void ScoreBoard::DrawCurrentScore() const {
-    setcolor(WHITE);
-    setfont(10, 0, _T("微软雅黑"));
-    outtextxy(200, 200, m_score);
+    std::string scoreText = "Score: " + std::to_string(m_score);
+    outtextxy(10, 10, scoreText.c_str());
 }
