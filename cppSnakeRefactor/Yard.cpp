@@ -42,7 +42,7 @@ bool Yard::CheckIsCollision() {
     return false;
 }
 
-void Yard::ChangeSnakeDirection(Direction *direction) {
+void Yard::ChangeSnakeDirection(shared_ptr<Direction>& direction) {
     m_snake->ChangeDirection(direction);
 
 }

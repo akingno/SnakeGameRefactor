@@ -6,8 +6,8 @@
 
 
 using namespace std;
-FruitFactory::FruitFactory() : distribHeight(0,Globals::GRAPH_HEIGHT - Globals::BLOCK_SIZE),
-                                distribWeight(0,Globals::GRAPH_WEIGHT - Globals::BLOCK_SIZE),
+FruitFactory::FruitFactory() : distribHeight(0,Globals::GRAPH_HEIGHT / Globals::BLOCK_SIZE),
+                                distribWeight(0,Globals::GRAPH_WEIGHT / Globals::BLOCK_SIZE),
                                     distriType(0,2){}
 
 std::shared_ptr<Fruit> FruitFactory::RefreshFruit(){
@@ -16,8 +16,8 @@ std::shared_ptr<Fruit> FruitFactory::RefreshFruit(){
     random_device rd;
     mt19937 gen(rd());
 
-    int loc_first               =   distribWeight(gen);
-    int loc_second              =   distribHeight(gen);
+    int loc_first               =   distribWeight(gen) * Globals::BLOCK_SIZE;
+    int loc_second              =   distribHeight(gen) * Globals::BLOCK_SIZE;
 
     double  type_possibility    =   distriType(gen);
 

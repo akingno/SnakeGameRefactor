@@ -19,7 +19,7 @@ public:
                                         Yard();
     bool                                CheckIsCollision();
     void                                InitItems();
-    void                                ChangeSnakeDirection(Direction *direction);
+    void                                ChangeSnakeDirection(std::shared_ptr<Direction>& direction);
     void                                MoveSnake();
     void                                drawItems();
     bool                                CheckIsHide(std::shared_ptr<Fruit> &fruit);

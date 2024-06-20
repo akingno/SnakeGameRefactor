@@ -16,6 +16,7 @@
 #include "Global.h"
 #include <windows.h>
 #include <thread>
+#include <atomic>
 
 /*
  * TODO:此处方向也许需要删除

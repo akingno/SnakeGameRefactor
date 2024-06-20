@@ -9,12 +9,14 @@
 #include "Drawable.h"
 #include <vector>
 #include <utility>
+#include <mutex>
+#include <memory>
 
 class Direction;
-class Snake : public Drawable{
+class Snake : public Drawable, public std::enable_shared_from_this<Snake>{
 public:
                                     Snake();
-    void                            ChangeDirection(Direction* direction);
+    void                            ChangeDirection(std::shared_ptr<Direction>& direction);
     void                            SnakeMove();
     void                            UpdateEatFruit();
     void                            Up();
@@ -27,9 +29,11 @@ public:
     bool                            CheckIsCollision(const std::pair<int,int>& mine_location);
     bool                            CheckEatFruit(const std::pair<int,int>& fruit_location);
     bool                            CheckIsHideFruit(const std::pair<int,int>& fruit_location);
+    std::pair<int,int>              GetDirection();
 private:
     std::vector<std::pair<int,int>> vec_body;
     std::pair<int,int>              pr_direction;
+    std::mutex                      direction_mutex;
 };
 
 

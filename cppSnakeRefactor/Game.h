@@ -6,13 +6,11 @@
 #define CPPSNAKEREFACTOR_GAME_H
 
 #include <iostream>
-#include <graphics.h>
-#include "Timer.h"
 #include "Yard.h"
 #include "KeyController.h"
-#include "ScoreBoard.h"
 #include <conio.h>
 #include <memory>
+#include "ScoreBoard.h"
 
 enum Button { EXIT, RESTART };
 
@@ -21,7 +19,7 @@ class Game {
 public:
                                         Game(std::shared_ptr<ScoreBoard> &scoreBoard,
                                              std::shared_ptr<KeyController> &keyController);
-    void                                ChangeSnakeDirection(Direction *direction);
+    void                                ChangeSnakeDirection(std::shared_ptr<Direction>& direction);
     void                                CreateNewGame();
     Button ShowOptions();
     Button HandleGameOverInput();
@@ -42,6 +40,8 @@ private:
 private:
     Button                              EndGame();
     void                                StopLooping();
+
+    bool                                isGameUpdating;
 
 };
 

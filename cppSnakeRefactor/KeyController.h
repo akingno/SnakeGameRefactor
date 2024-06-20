@@ -12,10 +12,16 @@
 #include "directions/DirectionRight.h"
 #include <iostream>
 #include <memory>
+#include <thread>
+#include <conio.h>
+#include "Global.h"
+
+class Game;
+
 class KeyController {
 public:
                                         KeyController();
-    void                                ListeningKeyPressed();
+    void                                ListeningKeyPressed(std::shared_ptr<Game>& game);
 private:
     std::shared_ptr<Direction>          directionUp;
     std::shared_ptr<Direction>          directionDown;

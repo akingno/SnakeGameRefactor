@@ -11,7 +11,7 @@ void Game::CreateNewGame() {
     // 初始化新游戏
 }
 
-void Game::ChangeSnakeDirection(Direction *direction) {
+void Game::ChangeSnakeDirection(shared_ptr<Direction>& direction) {
     m_yard -> ChangeSnakeDirection(direction);
 }
 
@@ -31,6 +31,14 @@ Button Game::ShowOptions(){
 
 void Game::ReInitGame() {
     std::cout<<"reinit"<<std::endl;
+    /*
+     * 创建新蛇
+     * isUpdating = true;
+     * m_timer -> startupdating
+     * 清分数
+     * 水果工厂刷新水果
+     * 刷新地雷
+     * */
 }
 
 void Game::DrawButtons(Button current) {
@@ -87,9 +95,9 @@ Button Game::HandleGameOverInput() {
 }
 
 void Game::InitGame() {
-    /* 1.刷新ScoreBoard
-     * 2.创建Timer和Yard
-     * 3.InitItems：
+    /* 1.刷新ScoreBoard 1
+     * 2.创建Timer和Yard 1
+     * 3.InitItems：1
      *
      *
      */
@@ -98,22 +106,22 @@ void Game::InitGame() {
     m_yard          =       make_shared<Yard>();
     m_yard -> InitItems();
     m_timer -> StartUpdating();
+    isGameUpdating  =       true;
 
 }
 
 Button Game::PlayGame() {
     //开始一个游戏循环，返回一局游戏结束后的玩家选项
-    while(true){
-        /*TODO:1. snake move
-         *2. check collision(called by snake with its body, judged by yard)
-         *3. if dead: end game, return the option
-         *4. if not dead, draw
-         *5. sleep
+    while(isGameUpdating){
+        /*1. snake move 1
+         *2. check collision(called by snake with its body, judged by yard) 1
+         *3. if dead: end game, return the option 1
+         *4. if not dead, draw 1
+         *5. sleep 1
          * */
     m_yard -> MoveSnake();
     cout << "game:snake move"<<endl;
     if(!m_yard->CheckIsCollision()){
-        //TODO:DRAW
         m_yard -> drawItems();
         Sleep(1000);
 
@@ -149,6 +157,10 @@ Button Game::EndGame() {
      *
      *
      * */
+    isGameUpdating = false;
+    m_timer -> StopUpdating();
+
+
     cout<<"game end"<<"\n";
     return EXIT;
 }
