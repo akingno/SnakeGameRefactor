@@ -25,8 +25,8 @@ using namespace std;
 
 void restartGame();
 void ReInit();//TODO:是否保留？
-std::atomic<bool> Globals::running(true);
 int Globals::sleepGap = 800;
+std::atomic<bool> Globals::running(true);
 
 
 int main() {
@@ -54,28 +54,15 @@ int main() {
     });
 
     game -> InitGame();
+    game -> PlayGame();
+    cout<<"main:exit"<<endl;
 
-    while(true){
+    Globals::running = false;
+    listener.join();
+    cout<<"thread join"<<endl;
+    closegraph();			// 关闭绘图窗口
+    return 0;
 
-        Button option = game -> PlayGame();
-        if(option == EXIT){
-            Globals::running = false;
-            cout<<"main:exit"<<endl;
-
-            listener.join();
-            cout<<"thread join"<<endl;
-            closegraph();			// 关闭绘图窗口
-            return 0;
-            //continue;
-        }
-        else if(option == RESTART){
-            game -> ReInitGame();
-            continue;
-        }
-        else{
-            cout<<"main:wrong"<<endl;
-        }
-    }
 
 
 

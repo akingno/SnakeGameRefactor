@@ -22,6 +22,7 @@ public:
     void                            StopUpdating();
     void                            AddListener(std::shared_ptr<OnTimeListener> newListener);
     void                            onTime();
+    void                            clearListenner();
 
 
 private:

@@ -23,10 +23,18 @@ void KeyController::ListeningKeyPressed(shared_ptr<Game>& game) {
             if (c == 'w' || c == 'W') {
                 cout<<"press W"<<endl;
                 game->ChangeSnakeDirection(directionUp);
+                if(!game->GetIsGameUpdating()){
+                    game->SwitchButtonChosen();
+                }
+
             }
             else if (c == 's' || c == 'S') {
                 cout<<"press S"<<endl;
                 game->ChangeSnakeDirection(directionDown);
+
+                if(!game->GetIsGameUpdating()){
+                    game->SwitchButtonChosen();
+                }
             }
             else if (c == 'a' || c == 'A') {
                 cout<<"press A"<<endl;
@@ -36,9 +44,13 @@ void KeyController::ListeningKeyPressed(shared_ptr<Game>& game) {
                 cout<<"press D"<<endl;
                 game->ChangeSnakeDirection(directionRight);
             }
+            else if (c == 13) { // Enter key
+                game->ConfirmChosen();
+            }
         }
-        Sleep(10);
+        Sleep(50);
     }
+    cout<<"KeyController:WARNING:globals::running end"<<endl;
 }
 
 

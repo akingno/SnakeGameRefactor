@@ -21,12 +21,14 @@ public:
                                              std::shared_ptr<KeyController> &keyController);
     void                                ChangeSnakeDirection(std::shared_ptr<Direction>& direction);
     void                                CreateNewGame();
-    Button ShowOptions();
-    Button HandleGameOverInput();
+    void                                ShowOptions();
     void                                DrawButtons(Button current);
     void                                InitGame();
     void                                ReInitGame();
-    Button                              PlayGame();
+    void                                PlayGame();
+    bool                                GetIsGameUpdating() const;
+    void                                SwitchButtonChosen();
+    void                                ConfirmChosen();
 
 
 private:
@@ -38,10 +40,10 @@ private:
     std::shared_ptr<Yard>               m_yard;
 
 private:
-    Button                              EndGame();
-    void                                StopLooping();
+    void                                EndGame();
 
     bool                                isGameUpdating;
+    bool                                isOptionConfirm;
 
 };
 

@@ -120,9 +120,9 @@ bool Snake::CheckEatFruit(const pair<int, int> &fruit_location) {
     return vec_body[0] == fruit_location;
 }
 
-bool Snake::CheckIsHideFruit(const pair<int, int> &fruit_location) {
+bool Snake::CheckIsHideObject(const pair<int, int> &object_location) {
     for(const auto& bodypart : vec_body){
-        if(bodypart == fruit_location){
+        if(bodypart == object_location){
             return true;
         }
     }

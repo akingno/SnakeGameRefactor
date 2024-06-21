@@ -19,82 +19,77 @@ void Game::ChangeSnakeDirection(shared_ptr<Direction>& direction) {
 /*
  * 在游戏结束后，显示选项菜单
  * */
-Button Game::ShowOptions(){
-
+void Game::ShowOptions(){
+    cleardevice();
     setcolor(WHITE);
     setfont(50, 0, _T("微软雅黑"));
     outtextxy(150, 265, _T("YOU LOSE!"));
     DrawButtons(m_currentButton);
-    return HandleGameOverInput();
+    //wait for choosing
+    while(true){
+        if(m_currentButton == RESTART && isOptionConfirm){
+            ReInitGame();
+            PlayGame();
+        }
+        if(m_currentButton == EXIT && isOptionConfirm){
+            return;
+        }
+    }
 }
 
 
 void Game::ReInitGame() {
-    std::cout<<"reinit"<<std::endl;
+    isOptionConfirm = false;
+    cout<<"game:ReInit"<<endl;
     /*
-     * 创建新蛇
-     * isGameUpdating = true;
-     * m_timer -> startupdating
-     * 清分数
-     * 水果工厂刷新水果
+     * 绑定新蛇
+     * isGameUpdating = true; 1
+     * m_timer -> startupdating 1
+     * 清分数 1
+     * 水果工厂刷新水果 TODO:是否这几个都可以用InitItems替代？
      * 刷新地雷
-     * 刷新globals::gap
+     * 刷新globals::gap 1
      *
      * */
+    m_yard -> InitItems();
+    isGameUpdating = true;
+    m_scoreBoard -> RefreshScoreboard();
+    m_timer -> AddListener(m_yard ->GetMineAsOnTimer());
+    m_timer -> StartUpdating();
+    Globals::sleepGap = Globals::OriginalSleepGap;
+
+    cout<<"game:ReInitEnd"<<endl;
 }
 
 void Game::DrawButtons(Button current) {
     //void restartGame();
-    setfillcolor(BLACK);
-    bar(200, 400, 400, 450);
-    bar(200, 460, 400, 510);
+    setfillcolor(RED);
+    bar(350, 400, 450, 450);
+    bar(350, 460, 450, 510);
 
     if (current == EXIT) {
         setfillcolor(LIGHTGRAY);
-        bar(200, 400, 400, 450);
+        bar(350, 400, 450, 450);
     } else {
         setfillcolor(BLACK);
-        bar(200, 400, 400, 450);
+        bar(350, 400, 450, 450);
     }
     setcolor(WHITE);
-    setfont(20, 0, _T("微软雅黑"));
-    outtextxy(250, 420, _T("Exit"));
+    setfont(12, 0, _T("微软雅黑"));
+    outtextxy(350, 410, _T("Exit"));
 
     if (current == RESTART) {
         setfillcolor(LIGHTGRAY);
-        bar(200, 460, 400, 510);
+        bar(350, 460, 450, 510);
     } else {
         setfillcolor(BLACK);
-        bar(200, 460, 400, 510);
+        bar(350, 460, 450, 510);
     }
     setcolor(WHITE);
-    setfont(20, 0, _T("微软雅黑"));
-    outtextxy(250, 480, _T("Restart"));
+    setfont(12, 0, _T("微软雅黑"));
+    outtextxy(350, 470, _T("Restart"));
 }
 
-Button Game::HandleGameOverInput() {
-    while (true) {
-        if (kbhit()) {
-            char c = getch();
-            if (c == 'w' || c == 'W') {
-                m_currentButton = (m_currentButton == EXIT) ? RESTART : EXIT;
-                DrawButtons(m_currentButton);
-            } else if (c == 's' || c == 'S') {
-                m_currentButton = (m_currentButton == RESTART) ? EXIT : RESTART;
-                DrawButtons(m_currentButton);
-            } else if (c == 13) { // Enter key
-                if (m_currentButton == EXIT) {
-                    closegraph();
-                    return EXIT;
-                } else if (m_currentButton == RESTART) {
-                    ReInitGame();
-                    return RESTART;
-                }
-            }
-        }
-        Sleep(100);
-    }
-}
 
 void Game::InitGame() {
     /* 1.刷新ScoreBoard 1
@@ -109,11 +104,13 @@ void Game::InitGame() {
     m_yard  -> InitItems();
     m_timer -> AddListener(m_yard->GetMineAsOnTimer());
     m_timer -> StartUpdating();
+
     isGameUpdating  =       true;
+    isOptionConfirm =       false;
 
 }
 
-Button Game::PlayGame() {
+void Game::PlayGame() {
     //开始一个游戏循环，返回一局游戏结束后的玩家选项
     while(isGameUpdating){
         /*1. snake move 1
@@ -130,13 +127,11 @@ Button Game::PlayGame() {
 
     }
     else{
-        return EndGame();
+        EndGame();
     }
 
 
     }
-
-    return EXIT;
 }
 
 
@@ -147,29 +142,46 @@ Game::Game(shared_ptr <ScoreBoard> &scoreBoard,
 
 }
 
-Button Game::EndGame() {
+void Game::EndGame() {
+    cout<<"Game:EndGame"<<"\n";
     /*
-     * TODO:
-     * 1.StopLooping()
-     * 2.destory snake();
-     * 3.stop timer updating
-     * 4.draw score from scoreboard
-     * 5.ShowOptions(it will get input by itself)TODO:此处也要改为用keycontroller
-     * 6.根据输入返回Button值
+     *
+     * 3.stop timer updating 1
+     * 4.draw score from scoreboard 1
+     * 5.ShowOptions(it will get input by itself)
+     *
      *
      *
      *
      * */
     isGameUpdating = false;
     m_timer -> StopUpdating();
+    m_timer -> clearListenner();
+    m_scoreBoard->ShowFinalScore();
+    ShowOptions();
 
 
-    cout<<"game end"<<"\n";
-    return EXIT;
 }
 
-void Game::StopLooping() {
 
+bool Game::GetIsGameUpdating() const {
+    return isGameUpdating;
 }
+
+void Game::SwitchButtonChosen(){
+    m_currentButton = (m_currentButton == EXIT) ? RESTART : EXIT;
+    DrawButtons(m_currentButton);
+}
+
+void Game::ConfirmChosen() {
+    if (m_currentButton == EXIT) {
+        isOptionConfirm = true;
+        return;
+    } else if (m_currentButton == RESTART) {
+        cout<<"RESTART"<<endl;
+        isOptionConfirm = true;
+    }
+}
+
 
 

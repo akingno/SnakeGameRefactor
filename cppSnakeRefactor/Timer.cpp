@@ -11,17 +11,19 @@ Timer::~Timer() {
 }
 
 void Timer::StartUpdating() {
+    std::cout<<"Timer:StartUpdating"<<"\n";
     isTimerRunning.store(true);
     timerThread = std::thread(&Timer::UpdateLoop, this);
-    std::cout<<"make new thread and start updating the mine"<<"\n";
+    std::cout<<"Timer:StartedUpdating"<<"\n";
 }
 
 void Timer::StopUpdating() {
+
     isTimerRunning.store(false);
     if (timerThread.joinable()) {
         timerThread.join();
     }
-    std::cout<<"Timer:Stop Updating"<<"\n";
+    std::cout<<"Timer:StoppedUpdating"<<"\n";
 }
 
 void Timer::AddListener(std::shared_ptr<OnTimeListener> newListener) {
@@ -42,6 +44,10 @@ void Timer::UpdateLoop() {
         onTime();
     }
 
+}
+
+void Timer::clearListenner() {
+    listeners.clear();
 }
 
 

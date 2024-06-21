@@ -9,6 +9,7 @@ using namespace std;
 Yard::Yard(std::shared_ptr<ScoreBoard> &scoreBoard) :m_scoreBoard(scoreBoard){}
 
 void Yard::InitItems() {
+    cout<<"Yard:InitItems"<<endl;
     /* 3.1.创建蛇
      * 3.2.创建水果工厂
      * 3.3.水果工厂刷新水果种类和位置
@@ -72,7 +73,7 @@ void Yard::DrawItems() {
 
 bool Yard::CheckIsHide(shared_ptr<Fruit> &fruit) {
     const auto fruitLoc = fruit->GetLocation();
-    if(m_snake -> CheckIsHideFruit(fruitLoc)){
+    if(m_snake->CheckIsHideObject(fruitLoc)){
         return true;
     }
     if(m_mine -> GetLocation() == fruitLoc){

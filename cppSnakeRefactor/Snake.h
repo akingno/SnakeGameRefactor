@@ -30,7 +30,7 @@ public:
     void                            Draw()                                              override;
     bool                            CheckIsCollision(const std::pair<int,int>& mine_location);
     bool                            CheckEatFruit(const std::pair<int,int>& fruit_location);
-    bool                            CheckIsHideFruit(const std::pair<int,int>& fruit_location);
+    bool                            CheckIsHideObject(const std::pair<int, int> &object_location);
     std::pair<int,int>              GetDirection();
 private:
     std::vector<std::pair<int,int>> vec_body;
