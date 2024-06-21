@@ -17,7 +17,11 @@ void Timer::StartUpdating() {
 }
 
 void Timer::StopUpdating() {
-
+    isTimerRunning.store(false);
+    if (timerThread.joinable()) {
+        timerThread.join();
+    }
+    std::cout<<"Timer:Stop Updating"<<"\n";
 }
 
 void Timer::AddListener(std::shared_ptr<OnTimeListener> newListener) {
