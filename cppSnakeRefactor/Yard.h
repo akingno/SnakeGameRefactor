@@ -40,6 +40,8 @@ private:
 
     bool                                IsOverlapObject(const std::pair<int, int> &obj_loc1,
                                                         const std::pair<int, int> &obj_loc2);
+
+    void GenerateNewMine();
 };
 
 

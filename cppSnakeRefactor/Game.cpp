@@ -39,12 +39,9 @@ void Game::ReInitGame() {
     isOptionConfirm = false;
     cout<<"game:ReInit"<<endl;
     /*
-     * 绑定新蛇
      * isGameUpdating = true; 1
      * m_timer -> startupdating 1
      * 清分数 1
-     * 水果工厂刷新水果
-     * 刷新地雷
      * 刷新globals::gap 1
      *
      * */
@@ -59,7 +56,7 @@ void Game::ReInitGame() {
 }
 
 void Game::DrawButtons(Button current) {
-    //void restartGame();
+
     setfillcolor(RED);
     bar(350, 400, 450, 450);
     bar(350, 460, 450, 510);
@@ -92,10 +89,7 @@ void Game::InitGame() {
     /* 1.刷新ScoreBoard 1
      * 2.创建Timer和Yard 1
      * 3.InitItems：1
-     *
-     *
      */
-    m_scoreBoard -> RefreshScoreboard();
     m_timer         =       make_shared<Timer>();
     m_yard          =       make_shared<Yard>(m_scoreBoard);
     m_yard  -> InitItems();

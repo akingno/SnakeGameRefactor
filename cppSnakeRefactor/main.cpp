@@ -1,17 +1,3 @@
-/*
-#include <graphics.h>		// 引用图形库头文件
-#include <conio.h>
-using namespace std;
-
-int main(){
-    initgraph(800, 600);	// 创建绘图窗口，大小为 640x480 像素
-    circle(200, 200, 10);// 画圆，圆心(200, 200)，半径 100
-    rectangle(200,200,220,220);
-    _getch();				// 按任意键继续
-    closegraph();			// 关闭绘图窗口
-
-}
-*/
 
 #include "Main.h"
 

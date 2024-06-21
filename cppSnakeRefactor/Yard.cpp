@@ -45,12 +45,11 @@ bool Yard::CheckIsCollision() {
 
 
 void Yard::ChangeSnakeDirection(shared_ptr<Direction>& direction) {
-    m_snake->ChangeDirection(direction);
+    m_snake -> ChangeDirection(direction);
 
 }
 
 void Yard::MoveSnake() {
-    //cout<<"yard:snakemove"<<endl;
     m_snake -> SnakeMove();
 }
 
@@ -66,12 +65,14 @@ void Yard::DrawItems() {
     m_snake -> Draw();
     m_fruit -> Draw();
 
-    m_mine -> Draw();
+    m_mine  -> Draw();
     m_scoreBoard -> DrawCurrentScore();
-    //cout<<"drawing"<<endl;
 }
 
 bool Yard::CheckIsHide(shared_ptr<Fruit> &fruit) {
+    /*
+     * 辅助方法，判断水果是否与蛇或者雷的位置重合
+     * */
     const auto fruitLoc = fruit->GetLocation();
     if(m_snake->CheckIsHideObject(fruitLoc)){
         return true;
@@ -83,6 +84,12 @@ bool Yard::CheckIsHide(shared_ptr<Fruit> &fruit) {
 }
 
 shared_ptr<Fruit> Yard::GenerateNewFruit() {
+    /*
+     * 用水果工厂生成新的水果
+     * 因为要判断是否水果刷在了蛇上或者地雷上，所以这个方法只能由知道这些位置的yard进行
+     *
+     *
+     * */
     int max_iteration = 1000;
     int random_times = 0;
 
@@ -101,16 +108,32 @@ shared_ptr<Fruit> Yard::GenerateNewFruit() {
 }
 
 bool Yard::IsOverlapObject(const pair<int, int> &obj_loc1,const pair<int, int> &obj_loc2){
+    /*
+     * 辅助方法，判断两个坐标是否重合
+     * */
     return obj_loc1 == obj_loc2;
 }
 
 void Yard::Notified() {
+    /*
+     * 每次被提醒时进行：
+     * 1.生成新地雷位置
+     *
+     * */
+    GenerateNewMine();
+}
+
+void Yard::GenerateNewMine() {
+    /*
+     * Refresh地雷并确保其刷在不被遮挡的位置
+     *
+     * */
     int max_iteration = 1000;
     int random_times = 0;
 
     m_mine -> RefreshMine();
     while(m_snake -> CheckIsHideObject(m_mine->GetLocation())
-        || IsOverlapObject(m_mine -> GetLocation(),m_fruit -> GetLocation())){
+          || IsOverlapObject(m_mine -> GetLocation(),m_fruit -> GetLocation())){
         random_times ++;
         m_mine -> RefreshMine();
         if(random_times > max_iteration){
@@ -118,7 +141,6 @@ void Yard::Notified() {
             break;
         }
     }
-
 }
 
 
