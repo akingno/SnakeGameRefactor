@@ -4,13 +4,15 @@
 #include "Timer.h"
 #include<iostream>
 
-Timer::Timer() : running(false), interval(1000) {}
+Timer::Timer() : isTimerRunning(false), interval(1000) {}
 
 Timer::~Timer() {
     StopUpdating();
 }
 
 void Timer::StartUpdating() {
+    isTimerRunning.store(true);
+    timerThread = std::thread(&Timer::UpdateLoop, this);
     std::cout<<"make new thread and start updating the mine"<<"\n";
 }
 
@@ -18,10 +20,23 @@ void Timer::StopUpdating() {
 
 }
 
-void Timer::AddListener() {
+void Timer::AddListener(std::shared_ptr<OnTimeListener> newListener) {
+    listeners.push_back(newListener);
 }
 
 void Timer::onTime() {
+    if (isTimerRunning.load()) { // Double-check to avoid unnecessary update calls
+        for(const auto & listener : listeners){
+            listener -> Notified();
+        }
+    }
+}
+
+void Timer::UpdateLoop() {
+    while(isTimerRunning.load()){
+        std::this_thread::sleep_for(std::chrono::seconds(10));
+        onTime();
+    }
 
 }
 

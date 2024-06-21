@@ -23,9 +23,6 @@ void Yard::InitItems() {
     m_fruitFactory      = make_shared<FruitFactory>();
     m_fruit             = GenerateNewFruit();
 
-
-
-
 }
 
 
@@ -84,7 +81,15 @@ bool Yard::CheckIsHide(shared_ptr<Fruit> &fruit) {
     return false;
 }
 
-std::shared_ptr<Fruit> Yard::GenerateNewFruit() {
+void Yard::SetMine(shared_ptr<Mine> &newMine){//TODO:疑似不需要这个函数
+    m_mine = newMine;
+}
+
+shared_ptr<OnTimeListener> Yard::GetMineAsOnTimer() {
+    return static_pointer_cast<OnTimeListener>(m_mine);
+}
+
+shared_ptr<Fruit> Yard::GenerateNewFruit() {
     int max_iteration = 1000;
     int random_times = 0;
 
@@ -102,4 +107,6 @@ std::shared_ptr<Fruit> Yard::GenerateNewFruit() {
 
     return fruit;
 }
+
+
 

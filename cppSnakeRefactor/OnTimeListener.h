@@ -5,7 +5,7 @@
 #ifndef CPPSNAKEREFACTOR_ONTIMELISTENER_H
 #define CPPSNAKEREFACTOR_ONTIMELISTENER_H
 
-class onTimeListener {
+class OnTimeListener {
 public:
     virtual void                    Notified() = 0;
 };

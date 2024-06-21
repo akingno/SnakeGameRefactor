@@ -9,7 +9,7 @@
 #include <iostream>
 #include <random>
 
-class Mine : onTimeListener, Drawable{
+class Mine : public OnTimeListener, public Drawable{
 public:
                                 Mine();
     void                        RefreshMine();

@@ -24,6 +24,8 @@ public:
     void                                MoveSnake();
     void                                DrawItems();
     bool                                CheckIsHide(std::shared_ptr<Fruit> &fruit);
+    void                                SetMine(std::shared_ptr<Mine> &newMine);
+    std::shared_ptr<OnTimeListener>     GetMineAsOnTimer();
 
 
 private:
@@ -34,6 +36,7 @@ private:
     std::shared_ptr<ScoreBoard>         m_scoreBoard;
 
     std::shared_ptr<Fruit> GenerateNewFruit();
+
 
 
 };

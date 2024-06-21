@@ -33,12 +33,13 @@ void Game::ReInitGame() {
     std::cout<<"reinit"<<std::endl;
     /*
      * 创建新蛇
-     * isUpdating = true;
+     * isGameUpdating = true;
      * m_timer -> startupdating
      * 清分数
      * 水果工厂刷新水果
      * 刷新地雷
      * 刷新globals::gap
+     *
      * */
 }
 
@@ -106,6 +107,7 @@ void Game::InitGame() {
     m_timer         =       make_shared<Timer>();
     m_yard          =       make_shared<Yard>(m_scoreBoard);
     m_yard  -> InitItems();
+    m_timer -> AddListener(m_yard->GetMineAsOnTimer());
     m_timer -> StartUpdating();
     isGameUpdating  =       true;
 

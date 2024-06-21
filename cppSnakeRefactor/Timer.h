@@ -10,6 +10,9 @@
 #include <thread>
 #include <chrono>
 #include "OnTimeListener.h"
+#include <memory>
+#include <atomic>
+
 class Timer {
 public:
 
@@ -17,16 +20,17 @@ public:
                                     ~Timer();
     void                            StartUpdating();
     void                            StopUpdating();
-    void                            AddListener();
+    void                            AddListener(std::shared_ptr<OnTimeListener> newListener);
     void                            onTime();
 
 
 private:
+    void                                            UpdateLoop();
+    std::atomic<bool>                               isTimerRunning;
+    int                                             interval;
+    std::thread                                     timerThread;
+    std::vector<std::shared_ptr<OnTimeListener>>    listeners;
 
-    bool                            running;
-    int                             interval;
-    std::thread                     timerThread;
-    std::vector<onTimeListener*>    listeners;
 };
 
 #endif //CPPSNAKEREFACTOR_TIMER_H
