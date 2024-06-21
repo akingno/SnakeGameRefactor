@@ -11,9 +11,7 @@ Orange::Orange(const std::pair<int,int> pr_location) : Fruit(pr_location){
     i_nutrition     =   {2};
 }
 
-void Orange::RefreshFruit() {
-    // 刷新橙子
-}
+
 
 void Orange::Eaten(std::shared_ptr<Snake> snake) {
     snake->ChangeLength();

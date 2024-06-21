@@ -20,6 +20,7 @@ void Timer::StartUpdating() {
 void Timer::StopUpdating() {
 
     isTimerRunning.store(false);
+    //TODO:此处这个join会导致结束时卡顿
     if (timerThread.joinable()) {
         timerThread.join();
     }
@@ -43,7 +44,6 @@ void Timer::UpdateLoop() {
         std::this_thread::sleep_for(std::chrono::seconds(10));
         onTime();
     }
-
 }
 
 void Timer::clearListenner() {

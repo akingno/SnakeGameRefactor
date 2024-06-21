@@ -13,7 +13,6 @@ class Snake;
 class Fruit : Drawable{
 public:
                                 Fruit(std::pair<int,int> pr_location);
-    virtual void                RefreshFruit()                                          =       0;
     virtual void                Eaten(std::shared_ptr<Snake> snake)                     =       0;
     virtual int                 GetFruitScore()                 const                   =       0;
     std::pair<int,int>&         GetLocation();

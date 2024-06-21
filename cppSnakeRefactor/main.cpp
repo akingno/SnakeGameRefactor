@@ -19,13 +19,7 @@ int main(){
 using namespace std;
 
 
-
-
-
-
-void restartGame();
-void ReInit();//TODO:是否保留？
-int Globals::sleepGap = 800;
+int Globals::sleepGap = Globals::OriginalSleepGap;
 std::atomic<bool> Globals::running(true);
 
 
@@ -55,16 +49,12 @@ int main() {
 
     game -> InitGame();
     game -> PlayGame();
-    cout<<"main:exit"<<endl;
+    cout << "main:exit"<<endl;
 
     Globals::running = false;
     listener.join();
-    cout<<"thread join"<<endl;
+    cout << "thread join"<<endl;
     closegraph();			// 关闭绘图窗口
     return 0;
 
-
-
-
-    return 0;
 }

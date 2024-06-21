@@ -7,10 +7,6 @@
 using namespace std;
 
 
-void Game::CreateNewGame() {
-    // 初始化新游戏
-}
-
 void Game::ChangeSnakeDirection(shared_ptr<Direction>& direction) {
     m_yard -> ChangeSnakeDirection(direction);
 }
@@ -23,7 +19,8 @@ void Game::ShowOptions(){
     cleardevice();
     setcolor(WHITE);
     setfont(50, 0, _T("微软雅黑"));
-    outtextxy(150, 265, _T("YOU LOSE!"));
+    outtextxy(190, 265, _T("YOU LOSE!"));
+    m_scoreBoard -> ShowFinalScore();
     DrawButtons(m_currentButton);
     //wait for choosing
     while(true){
@@ -46,7 +43,7 @@ void Game::ReInitGame() {
      * isGameUpdating = true; 1
      * m_timer -> startupdating 1
      * 清分数 1
-     * 水果工厂刷新水果 TODO:是否这几个都可以用InitItems替代？
+     * 水果工厂刷新水果
      * 刷新地雷
      * 刷新globals::gap 1
      *
@@ -54,7 +51,7 @@ void Game::ReInitGame() {
     m_yard -> InitItems();
     isGameUpdating = true;
     m_scoreBoard -> RefreshScoreboard();
-    m_timer -> AddListener(m_yard ->GetMineAsOnTimer());
+    m_timer -> AddListener(m_yard);
     m_timer -> StartUpdating();
     Globals::sleepGap = Globals::OriginalSleepGap;
 
@@ -102,7 +99,7 @@ void Game::InitGame() {
     m_timer         =       make_shared<Timer>();
     m_yard          =       make_shared<Yard>(m_scoreBoard);
     m_yard  -> InitItems();
-    m_timer -> AddListener(m_yard->GetMineAsOnTimer());
+    m_timer -> AddListener(m_yard);
     m_timer -> StartUpdating();
 
     isGameUpdating  =       true;
@@ -120,7 +117,6 @@ void Game::PlayGame() {
          *5. sleep 1
          * */
     m_yard -> MoveSnake();
-    cout << "game:snake move"<<endl;
     if(!m_yard -> CheckIsCollision()){
         m_yard -> DrawItems();
         Sleep(Globals::sleepGap);
@@ -157,7 +153,6 @@ void Game::EndGame() {
     isGameUpdating = false;
     m_timer -> StopUpdating();
     m_timer -> clearListenner();
-    m_scoreBoard->ShowFinalScore();
     ShowOptions();
 
 
@@ -178,7 +173,6 @@ void Game::ConfirmChosen() {
         isOptionConfirm = true;
         return;
     } else if (m_currentButton == RESTART) {
-        cout<<"RESTART"<<endl;
         isOptionConfirm = true;
     }
 }

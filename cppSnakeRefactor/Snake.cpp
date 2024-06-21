@@ -9,7 +9,7 @@
 using namespace std;
 
 Snake::Snake() {
-    // 初始化蛇
+    //出生在固定位置
     vec_body.emplace_back(2 * Globals::BLOCK_SIZE_HALF, 2 * Globals::BLOCK_SIZE_HALF);
     vec_body.emplace_back(Globals::BLOCK_SIZE_HALF, Globals::BLOCK_SIZE_HALF);
     pr_direction            =       make_pair(1,0);
@@ -17,15 +17,12 @@ Snake::Snake() {
 }
 
 void Snake::ChangeDirection(shared_ptr<Direction>& direction) {
-    // 改变方向
     direction -> turn(shared_from_this());
 }
 
-void Snake::SnakeMove() {
-    // 移动
 
+void Snake::SnakeMove() {
     for(int i = vec_body.size() - 1 ; i > 0; --i){
-        //cout<<"vec_body size:"<< vec_body.size()<<endl;//TODO: DELETE
         vec_body[i]             =       vec_body[i-1];
     }
     lock_guard<std::mutex> lock(direction_mutex);
@@ -34,8 +31,13 @@ void Snake::SnakeMove() {
     cout << "snake:snakemove, head loc:" << vec_body[0].first << "," << vec_body[0].second << endl;
 }
 
+/*
+ *
+ * Update effects based on different kind of fruits
+ *
+ * */
 void Snake::UpdateEatFruit(shared_ptr<Fruit>& fruit) {
-    fruit->Eaten(shared_from_this());
+    fruit -> Eaten(shared_from_this());
 
     // 更新吃水果逻辑
     cout<<"Snake: EatFruit and Update"<< endl;
@@ -45,28 +47,28 @@ void Snake::Up() {
     // 向上
     lock_guard<std::mutex> lock(direction_mutex);
     pr_direction = make_pair(0,-1);
-    cout<<"Snake:changeDireection2Up"<<endl;
+    //cout<<"Snake:changeDireection2Up"<<endl;
 }
 
 void Snake::Down() {
     // 向下
     lock_guard<std::mutex> lock(direction_mutex);
     pr_direction = make_pair(0,1);
-    cout<<"Snake:changeDireection2Down"<<endl;
+    //cout<<"Snake:changeDireection2Down"<<endl;
 }
 
 void Snake::Left() {
     // 向左
     lock_guard<std::mutex> lock(direction_mutex);
     pr_direction = make_pair(-1,0);
-    cout<<"Snake:changeDireection2Left"<<endl;
+    //cout<<"Snake:changeDireection2Left"<<endl;
 }
 
 void Snake::Right() {
     // 向右
     lock_guard<std::mutex> lock(direction_mutex);
     pr_direction = make_pair(1,0);
-    cout<<"Snake:changeDireection2Right"<<endl;
+    //cout<<"Snake:changeDireection2Right"<<endl;
 }
 
 void Snake::ChangeLength() {
@@ -75,8 +77,8 @@ void Snake::ChangeLength() {
 }
 
 void Snake::ChangeSpeed() {
-    if(Globals::sleepGap > 100){
-        Globals::sleepGap -= 100;
+    if(Globals::sleepGap > 50){
+        Globals::sleepGap -= 10;
     }
     // 改变速度
 }

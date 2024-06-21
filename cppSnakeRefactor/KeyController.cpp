@@ -21,27 +21,28 @@ void KeyController::ListeningKeyPressed(shared_ptr<Game>& game) {
         if (kbhit()){
             char c = getch();
             if (c == 'w' || c == 'W') {
-                cout<<"press W"<<endl;
+                //cout<<"press W"<<endl;
                 game->ChangeSnakeDirection(directionUp);
+                //if game is not updating, means that it is end game time
                 if(!game->GetIsGameUpdating()){
                     game->SwitchButtonChosen();
                 }
 
             }
             else if (c == 's' || c == 'S') {
-                cout<<"press S"<<endl;
+                //cout<<"press S"<<endl;
                 game->ChangeSnakeDirection(directionDown);
-
+                //if game is not updating, means that it is end game time
                 if(!game->GetIsGameUpdating()){
                     game->SwitchButtonChosen();
                 }
             }
             else if (c == 'a' || c == 'A') {
-                cout<<"press A"<<endl;
+                //cout<<"press A"<<endl;
                 game->ChangeSnakeDirection(directionLeft);
             }
             else if (c == 'd' || c == 'D') {
-                cout<<"press D"<<endl;
+                //cout<<"press D"<<endl;
                 game->ChangeSnakeDirection(directionRight);
             }
             else if (c == 13) { // Enter key
@@ -50,7 +51,7 @@ void KeyController::ListeningKeyPressed(shared_ptr<Game>& game) {
         }
         Sleep(50);
     }
-    cout<<"KeyController:WARNING:globals::running end"<<endl;
+    cout<<"KeyController:running end"<<endl;
 }
 
 

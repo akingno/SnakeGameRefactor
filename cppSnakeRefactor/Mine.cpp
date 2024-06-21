@@ -13,15 +13,12 @@ void Mine::RefreshMine() {
 
     pr_location.first   =   distribWeight(gen) * Globals::BLOCK_SIZE;
     pr_location.second  =   distribHeight(gen) * Globals::BLOCK_SIZE;
-    cout<<"Mine Location"<<pr_location.first<<","<<pr_location.second<<endl;
+    cout << "Mine Location" << pr_location.first << ","<<pr_location.second<<endl;
+
 }
 
 Mine::Mine() = default;
 
-void Mine::Notified() {
-    cout<<"Mine:Notified"<<endl;
-    RefreshMine();
-}
 
 void Mine::Draw() {
     setfillcolor(BLUE);

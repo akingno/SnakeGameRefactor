@@ -9,11 +9,10 @@
 #include <iostream>
 #include <random>
 
-class Mine : public OnTimeListener, public Drawable{
+class Mine : public Drawable{
 public:
                                 Mine();
     void                        RefreshMine();
-    void                        Notified()              override;
     void                        Draw()                  override;
     std::pair<int,int>&         GetLocation();
 

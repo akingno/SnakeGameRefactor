@@ -50,7 +50,7 @@ void Yard::ChangeSnakeDirection(shared_ptr<Direction>& direction) {
 }
 
 void Yard::MoveSnake() {
-    cout<<"yard:snakemove"<<endl;
+    //cout<<"yard:snakemove"<<endl;
     m_snake -> SnakeMove();
 }
 
@@ -68,7 +68,7 @@ void Yard::DrawItems() {
 
     m_mine -> Draw();
     m_scoreBoard -> DrawCurrentScore();
-    cout<<"drawing"<<endl;
+    //cout<<"drawing"<<endl;
 }
 
 bool Yard::CheckIsHide(shared_ptr<Fruit> &fruit) {
@@ -76,37 +76,49 @@ bool Yard::CheckIsHide(shared_ptr<Fruit> &fruit) {
     if(m_snake->CheckIsHideObject(fruitLoc)){
         return true;
     }
-    if(m_mine -> GetLocation() == fruitLoc){
+    if(IsOverlapObject(m_mine -> GetLocation(),fruitLoc)){
         return true;
     }
     return false;
-}
-
-void Yard::SetMine(shared_ptr<Mine> &newMine){//TODO:疑似不需要这个函数
-    m_mine = newMine;
-}
-
-shared_ptr<OnTimeListener> Yard::GetMineAsOnTimer() {
-    return static_pointer_cast<OnTimeListener>(m_mine);
 }
 
 shared_ptr<Fruit> Yard::GenerateNewFruit() {
     int max_iteration = 1000;
     int random_times = 0;
 
-
     auto fruit = m_fruitFactory -> RefreshFruit();
 
     cout<<"fruit generation finish"<<endl;
-    while(CheckIsHide(fruit) && random_times <= max_iteration){
+    while(CheckIsHide(fruit)){
         random_times ++;
         fruit = m_fruitFactory -> RefreshFruit();
+        if(random_times > max_iteration){
+            cerr<<"Yard: something hide the fruit"<< endl;
+            break;
+        }
     }
-    if(random_times >1000){
-        cerr<<"Yard: something hide the fruit"<< endl;
+    return fruit;
+}
+
+bool Yard::IsOverlapObject(const pair<int, int> &obj_loc1,const pair<int, int> &obj_loc2){
+    return obj_loc1 == obj_loc2;
+}
+
+void Yard::Notified() {
+    int max_iteration = 1000;
+    int random_times = 0;
+
+    m_mine -> RefreshMine();
+    while(m_snake -> CheckIsHideObject(m_mine->GetLocation())
+        || IsOverlapObject(m_mine -> GetLocation(),m_fruit -> GetLocation())){
+        random_times ++;
+        m_mine -> RefreshMine();
+        if(random_times > max_iteration){
+            cerr<<"Yard: something hide the mine"<< endl;
+            break;
+        }
     }
 
-    return fruit;
 }
 
 

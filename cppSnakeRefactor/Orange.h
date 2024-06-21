@@ -10,7 +10,7 @@
 class Orange : public Fruit {
 public:
                                 Orange(std::pair<int,int> pr_location);
-    void                        RefreshFruit()                                  override;
+
     void                        Eaten(std::shared_ptr<Snake> snake)             override;
     int                         GetFruitScore()                         const   override;
     void                        Draw()                                          override;

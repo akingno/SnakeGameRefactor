@@ -20,7 +20,6 @@ public:
                                         Game(std::shared_ptr<ScoreBoard> &scoreBoard,
                                              std::shared_ptr<KeyController> &keyController);
     void                                ChangeSnakeDirection(std::shared_ptr<Direction>& direction);
-    void                                CreateNewGame();
     void                                ShowOptions();
     void                                DrawButtons(Button current);
     void                                InitGame();
@@ -32,7 +31,6 @@ public:
 
 
 private:
-    bool                                m_paused            {false};//TODO:DELETE
     Button                              m_currentButton     {EXIT};
     std::shared_ptr<ScoreBoard>         m_scoreBoard;
     std::shared_ptr<KeyController>      m_keyController;

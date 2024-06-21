@@ -11,10 +11,6 @@ Apple::Apple(std::pair<int,int> pr_location) : Fruit(pr_location){
 
 }
 
-void Apple::RefreshFruit() {
-    // 刷新苹果
-}
-
 void Apple::Eaten(std::shared_ptr<Snake> snake) {
     snake->ChangeLength();
     // 苹果被吃掉

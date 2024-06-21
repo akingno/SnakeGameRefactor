@@ -15,17 +15,17 @@
 #include "ScoreBoard.h"
 
 
-class Yard {
+class Yard : public OnTimeListener{
 public:
                                         Yard(std::shared_ptr<ScoreBoard> &scoreBoard);
     bool                                CheckIsCollision();
+    void                                Notified() override;
     void                                InitItems();
     void                                ChangeSnakeDirection(std::shared_ptr<Direction>& direction);
     void                                MoveSnake();
     void                                DrawItems();
     bool                                CheckIsHide(std::shared_ptr<Fruit> &fruit);
-    void                                SetMine(std::shared_ptr<Mine> &newMine);
-    std::shared_ptr<OnTimeListener>     GetMineAsOnTimer();
+
 
 
 private:
@@ -35,10 +35,11 @@ private:
     std::shared_ptr<Fruit>              m_fruit;
     std::shared_ptr<ScoreBoard>         m_scoreBoard;
 
-    std::shared_ptr<Fruit> GenerateNewFruit();
+    std::shared_ptr<Fruit>              GenerateNewFruit();
 
 
-
+    bool                                IsOverlapObject(const std::pair<int, int> &obj_loc1,
+                                                        const std::pair<int, int> &obj_loc2);
 };
 
 
