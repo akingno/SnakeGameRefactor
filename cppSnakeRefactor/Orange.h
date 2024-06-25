@@ -9,13 +9,11 @@
 
 class Orange : public Fruit {
 public:
-                                Orange(std::pair<int,int> pr_location);
+  Orange(std::pair<int, int> pr_location);
 
-    void                        Eaten(std::shared_ptr<Snake> snake)             override;
-    int                         GetFruitScore()                         const   override;
-    void                        Draw()                                          override;
+  void Eaten(std::shared_ptr<Snake> snake) override;
+  int GetFruitScore() const override;
+  void Draw() override;
 };
 
-
-
-#endif //CPPSNAKEREFACTOR_ORANGE_H
+#endif // CPPSNAKEREFACTOR_ORANGE_H
