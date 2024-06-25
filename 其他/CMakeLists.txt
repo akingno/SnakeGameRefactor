@@ -45,6 +45,6 @@ set(HEADERS
 )
 
 #link_libraries(libeasyx.a libgdi32.a libole32.a)
-link_libraries(easyx.lib)
+link_libraries(easyxa.lib)
 add_executable(cppSnakeRefactor ${SOURCES} ${HEADERS})
 target_precompile_headers(cppSnakeRefactor PRIVATE stdafx.h)
