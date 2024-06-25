@@ -5,23 +5,17 @@
 #ifndef CPPSNAKEREFACTOR_GLOBAL_H
 #define CPPSNAKEREFACTOR_GLOBAL_H
 
-#include<atomic>
+#include <atomic>
 
-namespace Globals{
-    constexpr int                   BLOCK_SIZE            =         20;
-    constexpr int                   BLOCK_SIZE_HALF       =         10;
-    constexpr int                   GRAPH_WEIGHT          =         800;
-    constexpr int                   GRAPH_HEIGHT          =         600;
-    constexpr int                   OriginalSleepGap      =         100;
-    extern    int                   sleepGap;
-    extern    std::atomic<bool>     running;
+namespace Globals {
+constexpr int BLOCK_SIZE = 20;
+constexpr int BLOCK_SIZE_HALF = 10;
+constexpr int GRAPH_WEIGHT = 800;
+constexpr int GRAPH_HEIGHT = 600;
+constexpr int OriginalSleepGap = 100;
+extern int sleepGap;
+extern std::atomic<bool> running;
 
+} // namespace Globals
 
-
-
-}
-
-
-
-
-#endif //CPPSNAKEREFACTOR_GLOBAL_H
+#endif // CPPSNAKEREFACTOR_GLOBAL_H

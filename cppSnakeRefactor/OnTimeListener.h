@@ -7,8 +7,7 @@
 
 class OnTimeListener {
 public:
-    virtual void                    Notified() = 0;
+  virtual void Notified() = 0;
 };
 
-
-#endif //CPPSNAKEREFACTOR_ONTIMELISTENER_H
+#endif // CPPSNAKEREFACTOR_ONTIMELISTENER_H

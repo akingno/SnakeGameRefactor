@@ -5,13 +5,12 @@
 #ifndef CPPSNAKEREFACTOR_DRAWABLE_H
 #define CPPSNAKEREFACTOR_DRAWABLE_H
 
-#include <graphics.h>
 #include "Global.h"
+#include <graphics.h>
 
 class Drawable {
 public:
-    virtual void Draw() = 0;
+  virtual void Draw() = 0;
 };
 
-
-#endif //CPPSNAKEREFACTOR_DRAWABLE_H
+#endif // CPPSNAKEREFACTOR_DRAWABLE_H

@@ -5,33 +5,30 @@
 #ifndef CPPSNAKEREFACTOR_TIMER_H
 #define CPPSNAKEREFACTOR_TIMER_H
 
-#include <vector>
-#include <functional>
-#include <thread>
-#include <chrono>
 #include "OnTimeListener.h"
-#include <memory>
 #include <atomic>
+#include <chrono>
+#include <functional>
+#include <memory>
+#include <thread>
+#include <vector>
 
 class Timer {
 public:
-
-                                    Timer();
-                                    ~Timer();
-    void                            StartUpdating();
-    void                            StopUpdating();
-    void                            AddListener(std::shared_ptr<OnTimeListener> newListener);
-    void                            onTime();
-    void                            clearListenner();
-
+  Timer();
+  ~Timer();
+  void StartUpdating();
+  void StopUpdating();
+  void AddListener(std::shared_ptr<OnTimeListener> newListener);
+  void onTime();
+  void clearListenner();
 
 private:
-    void                                            UpdateLoop();
-    std::atomic<bool>                               isTimerRunning;
-    int                                             interval;
-    std::thread                                     timerThread;
-    std::vector<std::shared_ptr<OnTimeListener>>    listeners;
-
+  void UpdateLoop();
+  std::atomic<bool> isTimerRunning;
+  int interval;
+  std::thread timerThread;
+  std::vector<std::shared_ptr<OnTimeListener>> listeners;
 };
 
-#endif //CPPSNAKEREFACTOR_TIMER_H
+#endif // CPPSNAKEREFACTOR_TIMER_H
