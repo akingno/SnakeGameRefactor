@@ -7,6 +7,7 @@
 
 #include "Global.h"
 #include <graphics.h>
+#include "Painter.h"
 
 class Drawable {
 public:

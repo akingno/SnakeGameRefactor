@@ -4,6 +4,7 @@
 
 #include "Yard.h"
 
+
 using namespace std;
 
 Yard::Yard(std::shared_ptr<ScoreBoard> &scoreBoard)
@@ -18,6 +19,7 @@ void Yard::InitItems() {
    * 3.5.地雷刷新位置
    */
   m_snake = make_shared<Snake>();
+  m_snake -> ResetSpeed();
 
   m_mine = make_shared<Mine>();
   m_mine->RefreshMine();
@@ -56,10 +58,10 @@ void Yard::DrawItems() {
    * 5. 绘制分数 1
    * */
   cleardevice();
-  m_snake->Draw();
   m_fruit->Draw();
 
   m_mine->Draw();
+  m_snake->Draw();
   m_scoreBoard->DrawCurrentScore();
 }
 
@@ -136,4 +138,7 @@ void Yard::GenerateNewMine() {
       break;
     }
   }
+}
+void Yard::SleepGap() {
+  Sleep(m_snake->GetSleepGap());
 }

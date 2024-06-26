@@ -17,8 +17,8 @@ void Apple::Eaten(std::shared_ptr<Snake> snake) {
 int Apple::GetFruitScore() const { return i_nutrition; }
 
 void Apple::Draw() {
-  setfillcolor(RED);
-  solidcircle(pr_location.first + Globals::BLOCK_SIZE_HALF,
-              pr_location.second + Globals::BLOCK_SIZE_HALF,
-              Globals::BLOCK_SIZE_HALF);
+  Painter::Draw(vector<pair<int,int>>{pr_location},
+                RED,
+                Globals::m_Shape::Circle);
+
 }

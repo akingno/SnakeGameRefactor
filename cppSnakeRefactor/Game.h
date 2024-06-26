@@ -14,19 +14,19 @@
 
 enum Button { EXIT, RESTART };
 
-class Game {
+class Game : std::enable_shared_from_this<Game>{
 public:
-  Game(std::shared_ptr<ScoreBoard> &scoreBoard,
-       std::shared_ptr<KeyController> &keyController);
+  Game();
+
   void ChangeSnakeDirection(std::shared_ptr<Direction> &direction);
   void ShowOptions();
   void DrawButtons(Button current);
   void InitGame();
-  void ReInitGame();
   void PlayGame();
   bool GetIsGameUpdating() const;
   void SwitchButtonChosen();
   void ConfirmChosen();
+  void StartKeyListener();
 
 private:
   Button m_currentButton{EXIT};
@@ -40,6 +40,7 @@ private:
 
   bool isGameUpdating;
   bool isOptionConfirm;
+  bool isPlaying;
 };
 
 #endif // CPPSNAKEREFACTOR_GAME_H

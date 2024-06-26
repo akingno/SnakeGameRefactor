@@ -22,16 +22,16 @@ void Game::ShowOptions() {
   // wait for choosing
   while (true) {
     if (m_currentButton == RESTART && isOptionConfirm) {
-      ReInitGame();
-      PlayGame();
+      return;
     }
     if (m_currentButton == EXIT && isOptionConfirm) {
+      isPlaying = false;
       return;
     }
   }
 }
 
-void Game::ReInitGame() {
+void Game::InitGame() {
   isOptionConfirm = false;
   cout << "game:ReInit" << endl;
   /*
@@ -46,7 +46,6 @@ void Game::ReInitGame() {
   m_scoreBoard->RefreshScoreboard();
   m_timer->AddListener(m_yard);
   m_timer->StartUpdating();
-  Globals::sleepGap = Globals::OriginalSleepGap;
 
   cout << "game:ReInitEnd" << endl;
 }
@@ -80,44 +79,52 @@ void Game::DrawButtons(Button current) {
   outtextxy(350, 470, _T("Restart"));
 }
 
-void Game::InitGame() {
-  /* 1.刷新ScoreBoard 1
-   * 2.创建Timer和Yard 1
-   * 3.InitItems：1
-   */
-  m_timer = make_shared<Timer>();
-  m_yard = make_shared<Yard>(m_scoreBoard);
-  m_yard->InitItems();
-  m_timer->AddListener(m_yard);
-  m_timer->StartUpdating();
-
-  isGameUpdating = true;
-  isOptionConfirm = false;
+void Game::StartKeyListener() {
+  m_keyController->StartListening(*this);
 }
+
+
 
 void Game::PlayGame() {
-  // 开始一个游戏循环，返回一局游戏结束后的玩家选项
-  while (isGameUpdating) {
-    /*1. snake move 1
-     *2. check collision(called by snake with its body, judged by yard) 1
-     *3. if dead: end game, return the option 1
-     *4. if not dead, draw 1
-     *5. sleep 1
-     * */
-    m_yard->MoveSnake();
-    if (!m_yard->CheckIsCollision()) {
-      m_yard->DrawItems();
-      Sleep(Globals::sleepGap);
 
-    } else {
-      EndGame();
+  /*TODO:
+   * 1.套嵌套1
+   * 2. end加调用endlistening1
+   *
+   */
+  // 开始一个游戏循环，返回一局游戏结束后的玩家选项
+  StartKeyListener();
+
+  cout<<"start listening"<<endl;
+  while (isPlaying) {
+    InitGame();
+    while (isGameUpdating) {
+      /*1. snake move 1
+			 *2. check collision(called by snake with its body, judged by yard) 1
+			 *3. if dead: end game, return the option 1
+			 *4. if not dead, draw 1
+			 *5. sleep 1
+			 * */
+      m_yard->MoveSnake();
+      if (m_yard->CheckIsCollision()) {
+        EndGame();
+        break;
+      }
+      m_yard->DrawItems();
+      m_yard->SleepGap();
     }
   }
+  m_keyController->StopListening();
 }
 
-Game::Game(shared_ptr<ScoreBoard> &scoreBoard,
-           shared_ptr<KeyController> &keyController)
-    : m_scoreBoard(scoreBoard), m_keyController(keyController) {}
+Game::Game():isOptionConfirm(false),
+               isGameUpdating(true),
+               isPlaying(true),
+               m_keyController(make_unique<KeyController>()),
+               m_scoreBoard(make_unique<ScoreBoard>()),
+               m_timer(make_unique<Timer>()),
+               m_yard(make_unique<Yard>(m_scoreBoard)){}
+
 
 void Game::EndGame() {
   cout << "Game:EndGame"
@@ -141,6 +148,7 @@ void Game::EndGame() {
 bool Game::GetIsGameUpdating() const { return isGameUpdating; }
 
 void Game::SwitchButtonChosen() {
+  cout<<"game:switch button"<<endl;
   m_currentButton = (m_currentButton == EXIT) ? RESTART : EXIT;
   DrawButtons(m_currentButton);
 }
@@ -153,3 +161,4 @@ void Game::ConfirmChosen() {
     isOptionConfirm = true;
   }
 }
+

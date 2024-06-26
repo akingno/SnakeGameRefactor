@@ -23,10 +23,10 @@ void Mine::RefreshMine() {
 Mine::Mine() = default;
 
 void Mine::Draw() {
-  setfillcolor(BLUE);
-  solidcircle(pr_location.first + Globals::BLOCK_SIZE_HALF,
-              pr_location.second + Globals::BLOCK_SIZE_HALF,
-              Globals::BLOCK_SIZE_HALF);
+  Painter::Draw(vector<pair<int,int>>{pr_location},
+                BLUE,
+                Globals::m_Shape::Circle);
+
 }
 
 std::pair<int, int> &Mine::GetLocation() { return pr_location; }

@@ -20,6 +20,8 @@ set(SOURCES
         directions/DirectionDown.cpp
         directions/DirectionLeft.cpp
         directions/DirectionRight.cpp
+        Painter.cpp
+        directions/Direction.cpp
 )
 
 set(HEADERS
@@ -42,9 +44,11 @@ set(HEADERS
         directions/DirectionDown.h
         directions/DirectionLeft.h
         directions/DirectionRight.h
+        Painter.h
+
 )
 
-#link_libraries(libeasyx.a libgdi32.a libole32.a)
-link_libraries(easyx.lib)
+link_libraries(libeasyx.a libgdi32.a libole32.a)
+#link_libraries(easyx.lib)
 add_executable(cppSnakeRefactor ${SOURCES} ${HEADERS})
 target_precompile_headers(cppSnakeRefactor PRIVATE stdafx.h)

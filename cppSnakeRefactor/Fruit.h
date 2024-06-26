@@ -17,6 +17,7 @@ public:
   virtual int GetFruitScore() const = 0;
   std::pair<int, int> &GetLocation();
   void Draw() override = 0;
+  virtual ~Fruit();
 
 protected:
   int i_nutrition;

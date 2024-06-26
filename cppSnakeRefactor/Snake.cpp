@@ -3,7 +3,7 @@
 //
 
 #include "Snake.h"
-
+#include "Painter.h"
 using namespace std;
 
 Snake::Snake() {
@@ -75,19 +75,17 @@ void Snake::ChangeLength() {
 }
 
 void Snake::ChangeSpeed() {
-  if (Globals::sleepGap > 50) {
-    Globals::sleepGap -= 10;
+  if (i_sleepGap > 50) {
+    i_sleepGap -= 10;
   }
   // 改变速度
 }
+void Snake::ResetSpeed() {
+  i_sleepGap = Globals::OriginalSleepGap;
+}
 
 void Snake::Draw() {
-  setfillcolor(GREEN);
-
-  for (const auto &pr : vec_body) {
-    solidrectangle(pr.first, pr.second, pr.first + Globals::BLOCK_SIZE,
-                   pr.second + Globals::BLOCK_SIZE);
-  }
+  Painter::Draw(vec_body,GREEN,Globals::m_Shape::Rectangle);
 }
 
 bool Snake::CheckIsCollision(const pair<int, int> &mine_location) {
@@ -130,3 +128,4 @@ bool Snake::CheckIsHideObject(const pair<int, int> &object_location) {
 }
 
 std::pair<int, int> Snake::GetDirection() { return pr_direction; }
+int Snake::GetSleepGap() { return i_sleepGap; }

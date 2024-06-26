@@ -6,7 +6,7 @@
 
 Orange::Orange(const std::pair<int, int> pr_location) : Fruit(pr_location) {
   // 构造函数实现
-  i_nutrition = {2};
+  i_nutrition = {5};
 }
 
 void Orange::Eaten(std::shared_ptr<Snake> snake) {
@@ -21,8 +21,7 @@ int Orange::GetFruitScore() const {
 }
 
 void Orange::Draw() {
-  setfillcolor(YELLOW);
-  solidcircle(pr_location.first + Globals::BLOCK_SIZE_HALF,
-              pr_location.second + Globals::BLOCK_SIZE_HALF,
-              Globals::BLOCK_SIZE_HALF);
+  Painter::Draw(vector<pair<int,int>>{pr_location},
+                RED,
+                Globals::m_Shape::Circle);
 }

@@ -10,7 +10,6 @@
 #include "ScoreBoard.h"
 #include "Snake.h"
 #include "directions/Direction.h"
-#include <graphics.h>
 #include <iostream>
 #include <memory>
 
@@ -23,6 +22,7 @@ public:
   void ChangeSnakeDirection(std::shared_ptr<Direction> &direction);
   void MoveSnake();
   void DrawItems();
+  void SleepGap();
   bool CheckIsHide(std::shared_ptr<Fruit> &fruit);
 
 private:

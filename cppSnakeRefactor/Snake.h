@@ -27,6 +27,8 @@ public:
   void Right();
   void ChangeLength();
   void ChangeSpeed();
+  void ResetSpeed();
+  int GetSleepGap();
   void Draw() override;
   bool CheckIsCollision(const std::pair<int, int> &mine_location);
   bool CheckEatFruit(const std::pair<int, int> &fruit_location);
@@ -37,6 +39,7 @@ private:
   std::vector<std::pair<int, int>> vec_body;
   std::pair<int, int> pr_direction;
   std::mutex direction_mutex;
+  int  i_sleepGap;
 };
 
 #endif // CPPSNAKEREFACTOR_SNAKE_H

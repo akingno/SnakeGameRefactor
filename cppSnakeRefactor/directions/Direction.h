@@ -14,8 +14,8 @@ class Snake;
 class Direction {
 public:
     virtual void turn(std::shared_ptr<Snake> snake) = 0;
+    virtual ~Direction();
 };
-
 
 
 #endif //CPPSNAKEREFACTOR_DIRECTION_H
