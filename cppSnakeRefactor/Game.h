@@ -19,28 +19,34 @@ public:
   Game();
 
   void ChangeSnakeDirection(std::shared_ptr<Direction> &direction);
-  void ShowOptions();
-  void DrawButtons(Button current);
-  void InitGame();
+
   void PlayGame();
+
   bool GetIsGameUpdating() const;
+
   void SwitchButtonChosen();
   void ConfirmChosen();
+
+
+private:
   void StartKeyListener();
-
-private:
-  Button m_currentButton{EXIT};
-  std::shared_ptr<ScoreBoard> m_scoreBoard;
-  std::shared_ptr<KeyController> m_keyController;
-  std::shared_ptr<Timer> m_timer;
-  std::shared_ptr<Yard> m_yard;
-
-private:
+  void InitGame();
   void EndGame();
 
-  bool isGameUpdating;
-  bool isOptionConfirm;
-  bool isPlaying;
+  void ShowOptions();
+  void DrawButtons(Button current);
+
+private:
+  std::shared_ptr<ScoreBoard>       m_scoreBoard;
+  std::shared_ptr<KeyController>    m_keyController;
+  std::shared_ptr<Timer>            m_timer;
+  std::shared_ptr<Yard>             m_yard;
+
+  Button                            m_currentButton     {EXIT};
+
+  bool                              isGameUpdating;
+  bool                              isOptionConfirm;
+  bool                              isPlaying;
 };
 
 #endif // CPPSNAKEREFACTOR_GAME_H

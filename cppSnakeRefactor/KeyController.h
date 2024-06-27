@@ -22,19 +22,24 @@ class Game;
 class KeyController {
 public:
   KeyController();
-  void ListeningKeyPressed(Game &game);
+
   void StartListening(Game& game);
   void StopListening();
 
 private:
-  std::shared_ptr<Direction>  directionUp;
-  std::shared_ptr<Direction>  directionDown;
-  std::shared_ptr<Direction>  directionRight;
-  std::shared_ptr<Direction>  directionLeft;
-  std::shared_ptr<Direction>  currentDirection;
-  std::thread                 listenerThread;
-  bool                        isListening           {false};
-  std::map<int,std::shared_ptr<Direction>>     map_directions;
+  void ListeningKeyPressed(Game &game);
+
+
+  std::shared_ptr<Direction>                    directionUp;
+  std::shared_ptr<Direction>                    directionDown;
+  std::shared_ptr<Direction>                    directionRight;
+  std::shared_ptr<Direction>                    directionLeft;
+  std::shared_ptr<Direction>                    currentDirection;
+
+  std::thread                                   listenerThread;
+  bool                                          isListening           {false};
+
+  std::map<int,std::shared_ptr<Direction>>      map_directions;
 };
 
 #endif // CPPSNAKEREFACTOR_KEYCONTROLLER_H

@@ -13,7 +13,6 @@ constexpr int BLOCK_SIZE_HALF = 10;
 constexpr int GRAPH_WEIGHT = 800;
 constexpr int GRAPH_HEIGHT = 600;
 constexpr int OriginalSleepGap = 100;
-extern int sleepGap;
 
 enum m_Shape{Circle, Rectangle};
 

@@ -4,7 +4,7 @@
 #include "Timer.h"
 #include <iostream>
 
-Timer::Timer() : isTimerRunning(false), interval(1000) {}
+Timer::Timer() : isTimerRunning(false) {}
 
 Timer::~Timer() { StopUpdating(); }
 

@@ -18,13 +18,5 @@
 #include <thread>
 #include <windows.h>
 
-/*
- * TODO:此处方向也许需要删除
- *
- * */
-#define UP 1
-#define DOWN 2
-#define LEFT 3
-#define RIGHT 4
 
 #endif // CPPSNAKEREFACTOR_MAIN_H

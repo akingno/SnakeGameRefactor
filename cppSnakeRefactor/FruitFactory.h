@@ -15,9 +15,9 @@ public:
   std::shared_ptr<Fruit> RefreshFruit();
 
 protected:
-  std::uniform_real_distribution<> distriType;
-  std::uniform_int_distribution<> distribWeight;
-  std::uniform_int_distribution<> distribHeight;
+  std::uniform_real_distribution<>      distriType;
+  std::uniform_int_distribution<>       distribWeight;
+  std::uniform_int_distribution<>       distribHeight;
 };
 
 #endif // CPPSNAKEREFACTOR_FRUITFACTORY_H

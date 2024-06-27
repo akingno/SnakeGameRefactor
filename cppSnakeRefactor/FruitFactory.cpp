@@ -12,6 +12,7 @@ FruitFactory::FruitFactory()
                            Globals::BLOCK_SIZE),
       distriType(0, 2) {}
 
+
 std::shared_ptr<Fruit> FruitFactory::RefreshFruit() {
   std::cout << "Refresh Fruit" << '\n';
 

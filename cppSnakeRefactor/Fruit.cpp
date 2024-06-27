@@ -8,4 +8,4 @@ Fruit::Fruit(const std::pair<int, int> pr_location)
     : pr_location(pr_location) {}
 
 std::pair<int, int> &Fruit::GetLocation() { return pr_location; }
-Fruit::~-mFruit() = default;
+Fruit::~Fruit() = default;

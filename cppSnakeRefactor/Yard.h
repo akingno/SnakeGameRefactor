@@ -15,29 +15,36 @@
 
 class Yard : public OnTimeListener {
 public:
-  Yard(std::shared_ptr<ScoreBoard> &scoreBoard);
-  bool CheckIsCollision();
+  explicit Yard(std::shared_ptr<ScoreBoard> &scoreBoard);
+
   void Notified() override;
+
   void InitItems();
-  void ChangeSnakeDirection(std::shared_ptr<Direction> &direction);
+
   void MoveSnake();
-  void DrawItems();
+  void ChangeSnakeDirection(std::shared_ptr<Direction> &direction);
+  bool CheckIsCollision();
   void SleepGap();
-  bool CheckIsHide(std::shared_ptr<Fruit> &fruit);
+
+  void DrawItems();
 
 private:
-  std::shared_ptr<Snake> m_snake;
-  std::shared_ptr<Mine> m_mine;
-  std::shared_ptr<FruitFactory> m_fruitFactory;
-  std::shared_ptr<Fruit> m_fruit;
-  std::shared_ptr<ScoreBoard> m_scoreBoard;
-
+  void GenerateNewMine();
   std::shared_ptr<Fruit> GenerateNewFruit();
 
+  bool CheckIsHide(std::shared_ptr<Fruit> &fruit);
   bool IsOverlapObject(const std::pair<int, int> &obj_loc1,
                        const std::pair<int, int> &obj_loc2);
 
-  void GenerateNewMine();
+
+private:
+  std::shared_ptr<Snake>          m_snake;
+  std::shared_ptr<Mine>           m_mine;
+  std::shared_ptr<FruitFactory>   m_fruitFactory;
+  std::shared_ptr<Fruit>          m_fruit;
+
+  std::shared_ptr<ScoreBoard>     m_scoreBoard;
+
 };
 
 #endif // CPPSNAKEREFACTOR_YARD_H

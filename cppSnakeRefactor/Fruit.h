@@ -12,16 +12,20 @@
 class Snake;
 class Fruit : Drawable {
 public:
-  Fruit(std::pair<int, int> pr_location);
-  virtual void Eaten(std::shared_ptr<Snake> snake) = 0;
-  virtual int GetFruitScore() const = 0;
-  std::pair<int, int> &GetLocation();
-  void Draw() override = 0;
+  explicit Fruit(std::pair<int, int> pr_location);
   virtual ~Fruit();
 
+  virtual void Eaten(std::shared_ptr<Snake> snake) = 0;
+
+  virtual int GetFruitScore() const = 0;
+  std::pair<int, int> &GetLocation();
+
+  void Draw() override = 0;
+
+
 protected:
-  int i_nutrition;
-  std::pair<int, int> pr_location;
+  int                   i_nutrition;
+  std::pair<int, int>   pr_location;
 };
 
 #endif // CPPSNAKEREFACTOR_FRUIT_H

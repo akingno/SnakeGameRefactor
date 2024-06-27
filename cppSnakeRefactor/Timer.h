@@ -17,18 +17,20 @@ class Timer {
 public:
   Timer();
   ~Timer();
+
   void StartUpdating();
   void StopUpdating();
+
   void AddListener(std::shared_ptr<OnTimeListener> newListener);
-  void onTime();
   void clearListenner();
 
 private:
   void UpdateLoop();
-  std::atomic<bool> isTimerRunning;
-  int interval;
-  std::thread timerThread;
-  std::vector<std::shared_ptr<OnTimeListener>> listeners;
+  void onTime();
+private:
+  std::atomic<bool>                             isTimerRunning;
+  std::thread                                   timerThread;
+  std::vector<std::shared_ptr<OnTimeListener>>  listeners;
 };
 
 #endif // CPPSNAKEREFACTOR_TIMER_H

@@ -12,9 +12,11 @@
 class Mine : public Drawable {
 public:
   Mine();
+
   void RefreshMine();
-  void Draw() override;
   std::pair<int, int> &GetLocation();
+
+  void Draw() override;
 
 private:
   std::pair<int, int> pr_location;
