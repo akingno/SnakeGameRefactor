@@ -74,6 +74,7 @@ set(TEST_SOURCES
         src/directions/DirectionRight.cpp
         src/Painter.cpp
         src/directions/Direction.cpp
+        tests/Snake_test.cpp
 )
 
 # 添加Google Test和Google Mock
@@ -97,3 +98,4 @@ enable_testing()
 
 # 添加测试
 add_test(NAME cppSnakeTests COMMAND cppSnakeTests)
+
