@@ -40,7 +40,10 @@ private:
   bool                                          isListening           {false};
 
   std::map<int,std::shared_ptr<Direction>>      map_directions;
+
   void JudgeMessage(Game &game, const ExMessage &msg);
+  void ProcessGameUpdating(Game &game, const ExMessage &msg);
+  void ProcessGameStop(Game &game, const ExMessage &msg) const;
 };
 
 #endif // CPPSNAKEREFACTOR_KEYCONTROLLER_H

@@ -40,18 +40,26 @@ void KeyController::ListeningKeyPressed(Game &game) {
 void KeyController::JudgeMessage(Game &game, const ExMessage &msg) {
   if (msg.message == WM_KEYDOWN) {//仅处理按下按键
     if(game.GetIsGameUpdating()){
-      if(map_directions.find(msg.vkcode)!= map_directions.end()){
-        game.ChangeSnakeDirection(map_directions[msg.vkcode]);
-      }
+      ProcessGameUpdating(game, msg);
     }
     else{ //switch button
-      if(msg.vkcode=='W'||msg.vkcode=='w'||msg.vkcode=='S'||msg.vkcode=='s'){
-        game.SwitchButtonChosen();
-      }
-      if(msg.vkcode == VK_RETURN){
-        game.ConfirmChosen();
-      }
+      ProcessGameStop(game, msg);
     }
+  }
+}
+
+void KeyController::ProcessGameStop(Game &game, const ExMessage &msg) const {
+  if(msg.vkcode=='W'||msg.vkcode=='w'||msg.vkcode=='S'||msg.vkcode=='s'){
+    game.SwitchButtonChosen();
+  }
+  if(msg.vkcode == VK_RETURN){
+    game.ConfirmChosen();
+  }
+}
+
+void KeyController::ProcessGameUpdating(Game &game, const ExMessage &msg) {
+  if(map_directions.find(msg.vkcode)!= map_directions.end()){
+    game.ChangeSnakeDirection(map_directions[msg.vkcode]);
   }
 }
 
