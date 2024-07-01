@@ -29,27 +29,61 @@ KeyController::KeyController() :isListening(false) {
 void KeyController::ListeningKeyPressed(Game &game) {
   ExMessage msg;
   while (isListening) {
-    if (peekmessage(&msg, EM_KEY)) {//仅处理按下按键
-      if (msg.message == WM_KEYDOWN) {
-
-        if(!game.GetIsGameUpdating()){ //switch button
-          if(msg.vkcode=='W'||msg.vkcode=='w'||msg.vkcode=='S'||msg.vkcode=='s'){
-            game.SwitchButtonChosen();
-          }
-        }
-        if(msg.vkcode == VK_RETURN){
-          game.ConfirmChosen();
-        }
-        if(map_directions.find(msg.vkcode)!=map_directions.end()){
-          game.ChangeSnakeDirection(map_directions[msg.vkcode]);
-        }
-
-      }
+    if (peekmessage(&msg, EM_KEY)) {
+      JudgeMessage(game, msg);
     }
     Sleep(50);
   }
   cout << "KeyController:running end" << endl;
 }
+
+void KeyController::JudgeMessage(Game &game, const ExMessage &msg) {
+  if (msg.message == WM_KEYDOWN) {//仅处理按下按键
+    if(game.GetIsGameUpdating()){
+      if(map_directions.find(msg.vkcode)!= map_directions.end()){
+        game.ChangeSnakeDirection(map_directions[msg.vkcode]);
+      }
+    }
+    else{ //switch button
+      if(msg.vkcode=='W'||msg.vkcode=='w'||msg.vkcode=='S'||msg.vkcode=='s'){
+        game.SwitchButtonChosen();
+      }
+      if(msg.vkcode == VK_RETURN){
+        game.ConfirmChosen();
+      }
+    }
+  }
+}
+
+/*void KeyController::ListeningKeyPressed(Game &game) {
+  ExMessage msg;
+  while (isListening) {
+    if (!peekmessage(&msg,EM_KEY)){
+      continue;
+    }
+    //仅处理按下按键
+    if (msg.message != WM_KEYDOWN) {
+      continue;
+    }
+
+    if(!game.GetIsGameUpdating()) { //switch button
+      if(msg.vkcode=='W'||msg.vkcode=='w'||msg.vkcode=='S'||msg.vkcode=='s'){
+        game.SwitchButtonChosen();
+        continue;
+      }
+      if(msg.vkcode == VK_RETURN){
+        game.ConfirmChosen();
+        continue;
+      }
+    }
+    else if(map_directions.find(msg.vkcode)!=map_directions.end()){
+      game.ChangeSnakeDirection(map_directions[msg.vkcode]);
+    }
+
+    Sleep(50);
+  }
+  cout << "KeyController:running end" << endl;
+}*/
 
 
 void KeyController::StartListening(Game& game) {

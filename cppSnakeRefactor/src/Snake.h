@@ -48,6 +48,9 @@ private:
   std::mutex                          direction_mutex;
 
   int                                 i_sleepGap;
+  bool CheckEatItself();
+  bool CheckEatMine(const pair<int, int> &pair);
+  bool CheckCollideWall();
 };
 
 #endif // CPPSNAKEREFACTOR_SNAKE_H

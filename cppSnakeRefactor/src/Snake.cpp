@@ -94,17 +94,27 @@ bool Snake::CheckIsCollision(const pair<int, int> &mine_location) {
    * 2. 检查雷 1
    * 3.检查墙 1
    * */
-  for (const auto &bodypart : vec_body) {
-    if (bodypart != vec_body[0] && bodypart.first == vec_body[0].first &&
-        bodypart.second == vec_body[0].second) {
-      cout << "Snake:Eat itself" << endl;
+  return (CheckEatItself()||CheckEatMine(mine_location)||CheckCollideWall());
+}
+
+bool Snake::CheckEatItself() {
+  for(int i = 1; i < vec_body.size(); ++i){
+    if(vec_body[i] == vec_body[0]){
       return true;
     }
   }
+  return false;
+}
+
+bool Snake::CheckEatMine(const pair<int, int> &mine_location) {
   if (vec_body[0] == mine_location) {
     cout << "Snake:Eat mine" << endl;
     return true;
   }
+  return false;
+}
+
+bool Snake::CheckCollideWall() {
   if (vec_body[0].first >= Globals::GRAPH_WEIGHT ||
       vec_body[0].second >= Globals::GRAPH_HEIGHT || vec_body[0].first < 0 ||
       vec_body[0].second < 0) {
@@ -129,3 +139,4 @@ bool Snake::CheckIsHideObject(const pair<int, int> &object_location) {
 
 std::pair<int, int> Snake::GetDirection() { return pr_direction; }
 int Snake::GetSleepGap() { return i_sleepGap; }
+
