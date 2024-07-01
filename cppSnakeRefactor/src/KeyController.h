@@ -44,6 +44,7 @@ private:
   void JudgeMessage(Game &game, const ExMessage &msg);
   void ProcessGameUpdating(Game &game, const ExMessage &msg);
   void ProcessGameStop(Game &game, const ExMessage &msg) const;
+  bool GetKeyWorS(const ExMessage &msg) const;
 };
 
 #endif // CPPSNAKEREFACTOR_KEYCONTROLLER_H

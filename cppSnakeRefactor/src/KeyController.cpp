@@ -49,12 +49,16 @@ void KeyController::JudgeMessage(Game &game, const ExMessage &msg) {
 }
 
 void KeyController::ProcessGameStop(Game &game, const ExMessage &msg) const {
-  if(msg.vkcode=='W'||msg.vkcode=='w'||msg.vkcode=='S'||msg.vkcode=='s'){
+  if(GetKeyWorS(msg)){
     game.SwitchButtonChosen();
   }
   if(msg.vkcode == VK_RETURN){
     game.ConfirmChosen();
   }
+}
+
+bool KeyController::GetKeyWorS(const ExMessage &msg) const {
+  return msg.vkcode=='W'||msg.vkcode=='w'||msg.vkcode=='S'||msg.vkcode=='s';
 }
 
 void KeyController::ProcessGameUpdating(Game &game, const ExMessage &msg) {
