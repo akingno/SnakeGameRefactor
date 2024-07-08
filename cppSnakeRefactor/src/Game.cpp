@@ -3,7 +3,7 @@
 //
 
 #include "Game.h"
-using namespace std;
+
 
 void Game::ChangeSnakeDirection(shared_ptr<Direction> &direction) {
   m_yard->ChangeSnakeDirection(direction);
@@ -33,7 +33,7 @@ void Game::ShowOptions() {
 
 void Game::InitGame() {
   isOptionConfirm = false;
-  cout << "game:ReInit" << endl;
+  std::cout << "game:ReInit" << std::endl;
   /*
    * isGameUpdating = true; 1
    * m_timer -> startupdating 1
@@ -95,7 +95,7 @@ void Game::PlayGame() {
   // 开始一个游戏循环，返回一局游戏结束后的玩家选项
   StartKeyListener();
 
-  cout<<"start listening"<<endl;
+  std::cout<<"start listening"<<endl;
   while (isPlaying) {
     InitGame();
     while (isGameUpdating) {
@@ -127,7 +127,7 @@ Game::Game():isOptionConfirm(false),
 
 
 void Game::EndGame() {
-  cout << "Game:EndGame"
+  std::cout << "Game:EndGame"
        << "\n";
   /*
    *
@@ -148,7 +148,7 @@ void Game::EndGame() {
 bool Game::GetIsGameUpdating() const { return isGameUpdating; }
 
 void Game::SwitchButtonChosen() {
-  cout<<"game:switch button"<<endl;
+  std::cout<<"game:switch button"<<std::endl;
   m_currentButton = (m_currentButton == EXIT) ? RESTART : EXIT;
   DrawButtons(m_currentButton);
 }
